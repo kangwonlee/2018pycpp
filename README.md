@@ -1,4 +1,4 @@
-# 2018 Python C++ Study Support
+# Choice 2018 : Which one I like more? Python or C++?
 
 ## Overview
 

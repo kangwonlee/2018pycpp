@@ -18,4 +18,4 @@
 |     |  3  | Introduction to C/C++<br>Configuring MS VS Code ([link](https://code.visualstudio.com/docs/languages/cpp))<br>printf("Hello World!\n");<br>cout << "Hello World" << endl;<br>Makefile |       |        |  ✓  |
 |  2  |  1  | Introduction to git and github |   ✓   |        |     |
 |     |  2  | Data types: int, float, complex, string<br>2's complements<br>`list`, `tuple` vs array<br>`dict` vs `struct` & `union` |       |   ✓    |  ✓  |
-|     |  3  | Operators<br>+-*/, (//, **), %<br>+= & *= vs assembly<br><<, >>, |, & |       |   ✓    |  ✓  |
+|     |  3  | Operators<br>+-*/, {++, --}, (//, **)%<br>+= & *= vs assembly<br><<, >>, |, & |       |   ✓    |  ✓  |

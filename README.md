@@ -13,7 +13,7 @@
 
 | Ch  | Sec | Subject                           | Linux | Python | C++ |
 |:---:|:---:|:---------------------------------:|:-----:|:------:|:---:|
-|  0  |  0  | Overview<br>Introduction to Linux<br>`ls`, `cd`, `which`, `cat`, `cp`, `vi`, `source`, `env` |   ✓   |        |     |
+|  0  |  0  | Overview<br>Introduction to Linux<br>`ls`, `cd`, `which`, `cat`, `cp`, `vi`, `source`, `env`, `&`, `&&` |   ✓   |        |     |
 |     |  1  | Introduction to Python<br>Installing [Anaconda](https://www.anaconda.com/download/) and MS VS Code<br>`print('Hello World!')`<br>`python hello.py` |       |   ✓    |     |
 |     |  2  | Introduction to C/C++<br>`printf("Hello World!\n");`<br>`cout << "Hello World\n";`<br>`g++ -Wall hello.cpp -o hello && ./hello`<br>Makefile<br>Configuring [MS VS Code](https://code.visualstudio.com/docs/languages/cpp) |       |        |  ✓  |
 |  1  |  0  | Introduction to [git](https://git-scm.com/), [github](https://www.github.com), and [travis-ci](https://www.travis-ci.org) |   ✓   |        |     |

@@ -1,4 +1,4 @@
-# Choice 2018 : Which one I like more? Python or C++?
+# Choice 2018 : Which programming language would you prefer? Python or C++?
 
 ## Overview
 

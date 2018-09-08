@@ -25,3 +25,6 @@
 |  3  |  0  | Pointers and *Call by Reference* |       |        |  ✓  |
 |     |  1  | Memory management by `malloc` and `free` |       |        |  ✓  |
 |     |  2  | True nature of python : `list` of `list`s and references |       |   ✓    |     |
+|  4  |  0  | Modules vs `namespace`s |       |   ✓    |  ✓  |
+|     |  1  | `class` and inheritance |       |   ✓    |  ✓  |
+|     |  2  | Attribute access control |       |   ✓    |  ✓  |

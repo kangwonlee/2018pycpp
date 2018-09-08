@@ -16,7 +16,7 @@
 |  0  |  0  | Overview<br>Introduction to Linux<br>`ls`, `cd`, `which`, `cat`, `cp`, `vi`, `source`, `env` |   ✓   |        |     |
 |     |  1  | Introduction to Python<br>Installing [Anaconda](https://www.anaconda.com/download/) and MS VS Code<br>`print('Hello World!')` |       |   ✓    |     |
 |     |  2  | Introduction to C/C++<br>Configuring MS VS Code ([link](https://code.visualstudio.com/docs/languages/cpp))<br>`printf("Hello World!\n");`<br>`cout << "Hello World\n";`<br>Makefile |       |        |  ✓  |
-|  1  |  0  | Introduction to git and github |   ✓   |        |     |
+|  1  |  0  | Introduction to [git](https://git-scm.com/), [github](https://www.github.com), and [travis-ci](https://www.travis-ci.org) |   ✓   |        |     |
 |     |  1  | Data types <br> integers and 2's complements <br> floating point and complex numbers <br> characters and strings<br>`list` and `tuple` vs array<br>`dict` vs `struct` and `union` |       |   ✓    |  ✓  |
 |     |  2  | Operators<br>`+` `-` `*` `/`, `%`, {`++`, `--`}, (`//`, `**`)<br>`+=` and `*=` vs assembly<br>`<<`, `>>`, `\|`, `&` |       |   ✓    |  ✓  |
 |  2  |  0  | *Control* statements : conditional<br>`if`-`else if`-`else`<br>`switch`-`case` |       |   ✓    |  ✓  |

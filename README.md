@@ -22,9 +22,9 @@
 |  2  |  0  | *Control* statements : conditional<br>`if`-`else if`-`else`<br>`switch`-`case` |       |   ✓    |  ✓  |
 |     |  1  | *Control* statements : repetition<br>`for`<br>`while`<br>`do while` |       |   ✓    |  ✓  |
 |     |  2  | Functions |       |   ✓    |  ✓  |
-|  3  |  0  | Pointers and *Call by Reference* |       |   ✓    |     |
-|     |  1  | Memory management by `malloc` and `free` |       |   ✓    |     |
-|     |  2  | True nature of python : `list` of `list`s and references |       |        |  ✓  |
+|  3  |  0  | Pointers and *Call by Reference* |       |        |  ✓  |
+|     |  1  | Memory management by `malloc` and `free` |       |        |  ✓  |
+|     |  2  | Under the hood of python : `list` of `list`s and references |       |   ✓    |     |
 |  4  |  0  | Modules vs `namespace`s |       |   ✓    |  ✓  |
 |     |  1  | `class` and inheritance |       |   ✓    |  ✓  |
 |     |  2  | Attribute access control |       |   ✓    |  ✓  |

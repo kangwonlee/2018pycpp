@@ -1,4 +1,4 @@
-# Choice 2018 : Which one I like more? Python or C++?
+# Choice 2018 : Which programming language would you prefer? Python or C++?
 
 ## Overview
 
@@ -12,10 +12,10 @@
 ## Contents
 
 | Ch  | Sec | Subject                           | Linux | Python | C++ |
-|:---:|:---:|:---------------------------------:|:-----:|:------:|:---:|
-|  0  |  0  | Overview<br>Introducing Linux bash<br>`ls`, `cd`, `which`, `cat`, `cp`, `vi`, `source`, `env`, `&`, `&&` |   ✓   |        |     |
-|     |  1  | Introducing Python<br>Installing [Anaconda](https://www.anaconda.com/download/) and MS VS Code<br>`print('Hello World!')`<br>`python hello.py` |       |   ✓    |     |
-|     |  2  | Introducing C/C++<br>`printf("Hello World!\n");`<br>`cout << "Hello World\n";`<br>`g++ -Wall hello.cpp -o hello && ./hello`<br>Makefile<br>Configuring [MS VS Code](https://code.visualstudio.com/docs/languages/cpp) |       |        |  ✓  |
+|:---:|:---:|:----------------------------------:|:-----:|:------:|:---:|
+|  0  |  0  | Overview<br>Introducing Linux bash |   ✓   |        |     |
+|     |  1  | Introducing Python<br>Installing [Anaconda](https://www.anaconda.com/download/) <br>`print('Hello World!')`<br>`python hello.py` |       |   ✓    |     |
+|     |  2  | Introducing C/C++<br>Installing `g++` and `make`<br>`printf("Hello World!\n");` / `cout << "Hello World\n";`<br>`g++ -Wall hello.cpp -o hello && ./hello` |       |        |  ✓  |
 |  1  |  0  | Introducing [git](https://git-scm.com/)<br>`git clone`, `git config --list`, `git status`, `git log`, `git add -p`, `git commit -m '<message>'`, `git push -u <remote> <branch>`<br>[github](https://www.github.com), and [travis-ci](https://www.travis-ci.org) |   ✓   |        |     |
 |     |  1  | Representing Data types <br> integers and 2's complements <br> floating point and complex numbers <br> characters and strings<br>`list` and `tuple` vs array<br>`dict` vs `struct` and `union` |       |   ✓    |  ✓  |
 |     |  2  | Operating<br>`+` `-` `*` `/`, `%`, {`++`, `--`}, (`//`, `**`)<br>`+=` and `*=` vs assembly<br>`<<`, `>>`, `\|`, `&` |       |   ✓    |  ✓  |

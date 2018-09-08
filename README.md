@@ -21,7 +21,7 @@
 |     |  2  | Operators<br>`+` `-` `*` `/`, `%`, {`++`, `--`}, (`//`, `**`)<br>`+=` and `*=` vs assembly<br>`<<`, `>>`, `\|`, `&` |       |   ✓    |  ✓  |
 |  2  |  0  | *Control* statements : conditional<br>`if`-`else if`-`else`<br>`switch`-`case` |       |   ✓    |  ✓  |
 |     |  1  | *Control* statements : repetition<br>`for`<br>`while`<br>`do while` |       |   ✓    |  ✓  |
-|     |  2  | Functions |       |   ✓    |  ✓  |
+|     |  2  | Functions and call by value      |       |   ✓    |  ✓  |
 |  3  |  0  | Pointers and *Call by Reference* |       |        |  ✓  |
 |     |  1  | Memory management by `malloc` and `free` |       |        |  ✓  |
 |     |  2  | Under the hood of python : `list` of `list`s and references |       |   ✓    |     |

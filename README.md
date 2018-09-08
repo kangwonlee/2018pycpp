@@ -28,3 +28,6 @@
 |  4  |  0  | Modules vs `namespace`s |       |   ✓    |  ✓  |
 |     |  1  | `class` and inheritance |       |   ✓    |  ✓  |
 |     |  2  | Attribute access control |       |   ✓    |  ✓  |
+|  5  |  0  | SciPy Stack : `numpy`, `matplotlib` |       |   ✓    |     |
+|     |  1  | SciPy Stack : `scipy`, `sympy` |       |   ✓    |     |
+|     |  2  | `cython` : a bridge between Python & C++ |       |   ✓    |  ✓  |

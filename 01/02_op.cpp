@@ -7,16 +7,20 @@ int main(int argn, char * argv[]){
 	int a = int(argv[0][0]);
 	int b = int(argv[0][1]);
 
-	cout << "argv[0] = " << argv[0] << '\n';	
-	cout << "a, b = " << a << ", " << b  << '\n';
+	printf("argv[0] = %s\n", argv[0]);	
+	printf("a, b = %d, %d\n", a, b);
 
 	b++;
-	cout << "b++" << '\n';
-	cout << "a, b = " << a << ", " << b  << '\n';
+	puts("b++\n");
+	printf("a, b = %d, %d\n", a, b);
 
 	b+=a;
-	cout << "b+=a" << '\n';
-	cout << "a, b = " << a << ", " << b  << '\n';
+	puts("b+=a\n");
+	printf("a, b = %d, %d\n", a, b);
+
+	b = a + b;
+	puts("b = a + b\n");
+	printf("a, b = %d, %d\n", a, b);
 
 	return 0;
 }

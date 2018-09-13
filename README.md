@@ -1,4 +1,4 @@
-# Choice 2018 : Which programming language would you prefer? Python or C++?
+# Python and C/C++ Tutorial : A Comparative Approach
 
 ## Overview
 

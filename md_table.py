@@ -11,10 +11,10 @@ def main():
     size_t = 4
     no_cell = 20
 
-    memory_map_table(base_addr, size_t, no_cell)
+    memory_map_random(base_addr, size_t, no_cell)
 
 
-def memory_map_table(base_addr, size_t, no_cell):
+def memory_map_random(base_addr, size_t, no_cell):
 
     rows_list = [''' Address (hex) | Content (hex) \n'''
                 ''':-------------:|:-------------:''']

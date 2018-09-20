@@ -5,9 +5,14 @@
 import IPython
 import pylab as py
 
-base_addr = 0x60000000
-size_t = 4
-no_cell = 20
+
+def main():
+    base_addr = 0x60000000
+    size_t = 4
+    no_cell = 20
+
+    memory_map_table(base_addr, size_t, no_cell)
+
 
 def memory_map_table(base_addr, size_t, no_cell):
 
@@ -25,4 +30,8 @@ def memory_map_table(base_addr, size_t, no_cell):
         rows_list.append('|'.join(columns_list))
 
     IPython.display.display(IPython.display.Markdown('\n'.join(rows_list)))
+
+
+if "__main__" == __name__:
+    main()
 

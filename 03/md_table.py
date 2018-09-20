@@ -29,6 +29,16 @@ def memory_map_random(base_addr, size_t, no_cell):
         one_row_list = [f'<pre>{i:08x}</pre>', content_formatter % py.randint(0, 2**31-1)]
         contents_list.append(one_row_list)
 
+    rows_list = get_md_table(contents_list)
+
+    IPython.display.display(IPython.display.Markdown('\n'.join(rows_list)))
+
+
+def get_md_table(contents_list):
+    """
+    Convert list of list into a multiline md table string
+    contents_list : list of list of strings
+    """
     rows_list = [
         '|'.join(contents_list[0]), # header list -> header string
         '|'.join([':-----:'] * len(contents_list[0])) # separator string
@@ -39,8 +49,7 @@ def memory_map_random(base_addr, size_t, no_cell):
 
         # Indicate a row of the table
         rows_list.append('|'.join(columns_list))
-
-    IPython.display.display(IPython.display.Markdown('\n'.join(rows_list)))
+    return rows_list
 
 
 if "__main__" == __name__:

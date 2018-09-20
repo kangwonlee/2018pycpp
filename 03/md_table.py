@@ -16,15 +16,26 @@ def main():
 
 def memory_map_random(base_addr, size_t, no_cell):
 
-    rows_list = [''' Address (hex) | Content (hex) \n'''
-                ''':-------------:|:-------------:''']
+    contents_list = [
+        ['Address (hex)','Content (hex)'], # header list
+    ]
 
-    contet_formatter = '<pre>%0' + str(2*size_t) + 'x</pre>'
+    # adjustable to size_t
+    content_formatter = f'<pre>%0{2*size_t}x</pre>'
 
-    # Decimal number loop
+    # Content builder loop
     for i in range(base_addr, base_addr+(no_cell*size_t)+1, size_t):
 
-        columns_list = [f'<pre>{i:08x}</pre>',contet_formatter % py.randint(0, 2**31-1)]
+        one_row_list = [f'<pre>{i:08x}</pre>', content_formatter % py.randint(0, 2**31-1)]
+        contents_list.append(one_row_list)
+
+    rows_list = [
+        '|'.join(contents_list[0]), # header list -> header string
+        '|'.join([':-----:'] * len(contents_list[0])) # separator string
+    ]
+
+    # Markdown converter table
+    for columns_list in contents_list:
 
         # Indicate a row of the table
         rows_list.append('|'.join(columns_list))

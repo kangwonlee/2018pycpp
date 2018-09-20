@@ -18,6 +18,13 @@ def memory_map_random(base_addr, size_t, no_cell):
 
     contents_list = malloc(size_t, no_cell, base_addr)
 
+    show(contents_list)
+
+
+def show(contents_list):
+    """
+    Show md table in the ipynb
+    """
     rows_list = get_md_table(contents_list)
 
     IPython.display.display(IPython.display.Markdown('\n'.join(rows_list)))

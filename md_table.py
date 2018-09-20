@@ -16,22 +16,31 @@ def main():
 
 def memory_map_random(base_addr, size_t, no_cell):
 
-    contents_list = [
-        ['Address (hex)','Content (hex)'], # header list
-    ]
-
-    # adjustable to size_t
-    content_formatter = f'<pre>%0{2*size_t}x</pre>'
-
-    # Content builder loop
-    for i in range(base_addr, base_addr+(no_cell*size_t)+1, size_t):
-
-        one_row_list = [f'<pre>{i:08x}</pre>', content_formatter % py.randint(0, 2**31-1)]
-        contents_list.append(one_row_list)
+    contents_list = malloc(size_t, no_cell, base_addr)
 
     rows_list = get_md_table(contents_list)
 
     IPython.display.display(IPython.display.Markdown('\n'.join(rows_list)))
+
+
+def malloc(element_size, num_elements,base_addr=0x60000000):
+    """
+    Build a list of list of strings for a memory map starting a base memory address
+    """
+    contents_list = [
+        ['Address (hex)','Content (hex)'], # header list
+    ]
+
+    # adjustable to element_size
+    content_formatter = f'<pre>%0{2*element_size}x</pre>'
+
+    # Content builder loop
+    for i in range(base_addr, base_addr+(num_elements*element_size)+1, element_size):
+
+        one_row_list = [f'<pre>{i:08x}</pre>', content_formatter % py.randint(0, 2**31-1)]
+        contents_list.append(one_row_list)
+
+    return contents_list
 
 
 def get_md_table(contents_list):

@@ -14,6 +14,30 @@ def has_gpp():
     return not (result)
 
 
+def is_markdown_cpp_src(ipynb_cell):
+    """
+    True if a cell is markdown && multiline source code && C++
+
+    ```'s wrap multiline code blocks
+    C++ source code blocks have C++ right after starting ```
+    """
+    result = False
+
+    # Markdown
+    if 'markdown' == ipynb_cell['cell_type']:
+        src = ipynb_cell['source'].strip()
+
+        # Multiline code block within ```'s
+        if (src.startswith('```') 
+            and src.endswith('```')):
+
+            # check C++ right after ```
+            if "c++" in src.splitlines()[0].lower():
+                result = True
+
+    return result
+
+
 def get_cpp_src_from_ipynb(path):
     """
     Get cpp source code from markdown cells of the ipynb file

@@ -1,15 +1,25 @@
 # ref : Francesco Mosconi, Travis + Anaconda + Jupyter, https://github.com/ghego/travis_anaconda_jupyter
 #       Anaconda Inc., Using conda with Travis CI, Conda documentation, https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
+#       .travis.yml for gcc-5 compiler support on Travis CI , https://gist.github.com/cotsog/3ce84675af0d74438d91
+sudo: required
 
 language: python
+
+dist: trusty
 
 python:
   - "3.6"
   - "nightly"
 
+before_install:
+  # C++14
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
 install:
   - sudo apt-get update
-  - sudo apt-get install gcc 7.3.0
+  - sudo apt-get install -qq g++-6
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
   # We do this conditionally because it saves us some downloading if the
   # version is the same.
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then

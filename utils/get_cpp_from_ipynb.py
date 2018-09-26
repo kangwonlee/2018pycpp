@@ -56,7 +56,8 @@ def get_cpp_src_from_ipynb(path):
             cpp_file.write(txt)
 
         # try to build the code
-        compile_command = f"g++ -Wall -g {cpp_file_name}"
+        # https://www.linuxquestions.org/questions/programming-9/trouble-with-double-complex-numbers-in-c-4175567740/
+        compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name}"
         compile_result = os.system(compile_command)
         result_list.append(compile_result)
 

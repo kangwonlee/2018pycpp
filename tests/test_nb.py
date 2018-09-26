@@ -32,6 +32,15 @@ folder_list = (
 )
 
 
+def has_gpp():
+    """
+    Check if this system has g++ compiler
+    """
+    result = os.system('bash which g++')
+    print(f"has_gpp() result = {result}")
+    return not (result)
+
+
 # https://docs.pytest.org/en/latest/example/parametrize.html
 @pytest.mark.parametrize("folder", folder_list)
 def test_ipynb_in_folder(folder):

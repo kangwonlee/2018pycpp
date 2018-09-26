@@ -34,11 +34,15 @@ def get_cpp_src_from_ipynb(path):
     )
 
     # markdown cells with C++ source code
+    # ```'s wrap multiline code blocks
+    # C++ source code blocks have C++ right after starting ```
     markdown_code_cells = []
     for cell in markdown_cells:
         src = cell['source'].strip()
+        # Multiline code block within ```'s
         if (src.startswith('```') 
             and src.endswith('```')):
+            # check C++ right after ```
             if "c++" in src.splitlines()[0].lower():
                 markdown_code_cells.append(cell)
 

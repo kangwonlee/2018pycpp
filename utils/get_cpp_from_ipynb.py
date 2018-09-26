@@ -38,6 +38,42 @@ def is_markdown_cpp_src(ipynb_cell):
     return result
 
 
+def build_markdown_cpp_cell(cell):
+    """
+    Save the C++ source code and try to build it
+    """
+    # Comment out ```'s
+    txt = cell['source'].replace('```', '// ```')
+
+    # obtain temporary file name
+    with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:
+        cpp_file_name = cpp_file.name
+
+    name, ext = os.path.splitext(cpp_file_name)
+
+    # open the temporary file and write to it
+    with open(cpp_file_name, 'wt') as cpp_file:
+        cpp_file.write(txt)
+
+    # Build the code
+    # Complex literal example needs C++ 14
+    # https://www.linuxquestions.org/questions/programming-9/trouble-with-double-complex-numbers-in-c-4175567740/
+    # https://stackoverflow.com/questions/31965413/compile-c14-code-with-g
+
+    compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
+    compile_result = os.system(compile_command)
+
+    # Delete the temporary file
+    if os.path.exists(cpp_file_name):
+        os.remove(cpp_file_name)
+
+    # Delete the execution file
+    if os.path.exists(name):
+        os.remove(name)
+
+    return compile_result
+
+
 def get_cpp_src_from_ipynb(path):
     """
     Get cpp source code from markdown cells of the ipynb file
@@ -57,30 +93,8 @@ def get_cpp_src_from_ipynb(path):
         nb['cells']
     )
 
-    result_list = []
-
     # save the C++ source code and try to build it
-    for cell in markdown_cpp_code_cells:
-        txt = cell['source'].replace('```', '// ```')
-        # obtain temporary file name
-        with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:
-            cpp_file_name = cpp_file.name
-
-        # open the temporary file and write to it
-        with open(cpp_file_name, 'wt') as cpp_file:
-            cpp_file.write(txt)
-
-        # try to build the code
-        # https://www.linuxquestions.org/questions/programming-9/trouble-with-double-complex-numbers-in-c-4175567740/
-        # https://stackoverflow.com/questions/31965413/compile-c14-code-with-g
-        compile_result = os.system('g++ --version')
-        # Complex literal example needs c++ 14
-        compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name}"
-        compile_result = os.system(compile_command)
-        result_list.append(compile_result)
-
-        if os.path.exists(cpp_file_name):
-            os.remove(cpp_file_name)
+    result_list = map(build_markdown_cpp_cell, markdown_cpp_code_cells)
 
     return not(any(result_list))
 

@@ -51,29 +51,16 @@ def get_cpp_src_from_ipynb(path):
     with open(path, encoding='utf-8') as ipynb:
         nb = nbformat.read(ipynb, nbformat.NO_CONVERT)
 
-    # choose markdown cells only
-    markdown_cells = filter(
-        lambda cell: 'markdown' == cell['cell_type'],
+    # choose markdown cells with C++ source code only
+    markdown_cpp_code_cells = filter(
+        is_markdown_cpp_src,
         nb['cells']
     )
-
-    # markdown cells with C++ source code
-    # ```'s wrap multiline code blocks
-    # C++ source code blocks have C++ right after starting ```
-    markdown_code_cells = []
-    for cell in markdown_cells:
-        src = cell['source'].strip()
-        # Multiline code block within ```'s
-        if (src.startswith('```') 
-            and src.endswith('```')):
-            # check C++ right after ```
-            if "c++" in src.splitlines()[0].lower():
-                markdown_code_cells.append(cell)
 
     result_list = []
 
     # save the C++ source code and try to build it
-    for cell in markdown_code_cells:
+    for cell in markdown_cpp_code_cells:
         txt = cell['source'].replace('```', '// ```')
         # obtain temporary file name
         with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:

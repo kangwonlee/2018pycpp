@@ -136,3 +136,5 @@ ENV/
 .mypy_cache/
 .idea/
 *.cfg
+.vscode/
+.pytest_cache/

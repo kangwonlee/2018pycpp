@@ -1,10 +1,10 @@
 # ref : Francesco Mosconi, Travis + Anaconda + Jupyter, https://github.com/ghego/travis_anaconda_jupyter
 
-
 import os
 import pytest
 import subprocess
 import tempfile
+import utils.get_cpp_from_ipynb as gcpp
 
 
 def check_kernel_spec():
@@ -39,6 +39,7 @@ def test_ipynb_in_folder(folder):
     ext = 'ipynb'
 
     # recursive loop
+    # TODO : Consider changing dirnames to '_'
     for root, dirnames, filenames in os.walk(path):
         if 'ipynb_checkpoints' not in root:
             # files loop
@@ -46,3 +47,21 @@ def test_ipynb_in_folder(folder):
                 if os.path.splitext(filename)[-1].endswith(ext):
                     print('test() : %s %s' % (root, filename))
                     _exec_notebook(os.path.join(root, filename))
+
+
+# https://docs.pytest.org/en/latest/example/parametrize.html
+@pytest.mark.parametrize("folder", folder_list)
+def test_cpp_in_ipynb_in_folder(folder):
+    path = os.path.join(os.pardir, folder)
+    ext = 'ipynb'
+
+    if gcpp.has_gpp():
+        # recursive loop
+        # TODO : Consider changing dirnames to '_'
+        for root, _, filenames in os.walk(path):
+            if 'ipynb_checkpoints' not in root:
+                # files loop
+                for filename in filenames:
+                    if os.path.splitext(filename)[-1].endswith(ext):
+                        print('test() : %s %s' % (root, filename))
+                        assert gcpp.get_cpp_src_from_ipynb(os.path.join(root, filename))

@@ -15,7 +15,11 @@ def has_gpp():
 def get_cpp_src_from_ipynb(path):
     with open(path, encoding='utf-8') as ipynb:
         nb = nbformat.read(ipynb, nbformat.NO_CONVERT)
-        print(nb)
+
+    # choose markdown cells only
+    for cell in nb['cells']:
+        if 'markdown' == cell['cell_type']:
+            print(cell['source'])
 
 
 def main(arg):

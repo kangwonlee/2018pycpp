@@ -1,6 +1,7 @@
 import os
 import nbformat
 import sys
+import re
 
 
 def has_gpp():
@@ -22,7 +23,15 @@ def get_cpp_src_from_ipynb(path):
         nb['cells']
     )
 
+    # markdown cells with source code
+    markdown_code_cells = []
     for cell in markdown_cells:
+        src = cell['source'].strip()
+        if (src.startswith('```') 
+            and src.endswith('```')):
+            markdown_code_cells.append(cell)
+
+    for cell in markdown_code_cells:
         print(cell['source'])
 
 

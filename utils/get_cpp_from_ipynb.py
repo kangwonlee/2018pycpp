@@ -17,9 +17,13 @@ def get_cpp_src_from_ipynb(path):
         nb = nbformat.read(ipynb, nbformat.NO_CONVERT)
 
     # choose markdown cells only
-    for cell in nb['cells']:
-        if 'markdown' == cell['cell_type']:
-            print(cell['source'])
+    markdown_cells = filter(
+        lambda cell: 'markdown' == cell['cell_type'],
+        nb['cells']
+    )
+
+    for cell in markdown_cells:
+        print(cell['source'])
 
 
 def main(arg):

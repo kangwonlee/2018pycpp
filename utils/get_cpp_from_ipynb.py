@@ -2,6 +2,7 @@ import os
 import nbformat
 import sys
 import re
+import tempfile
 
 
 def has_gpp():
@@ -14,6 +15,15 @@ def has_gpp():
 
 
 def get_cpp_src_from_ipynb(path):
+    """
+    Get cpp source code from markdown cells of the ipynb file
+
+    To test C++ source codes of the documents
+
+    + Choose markdown cells
+    + Choose C++ source code cells
+    + Save to a temporary file and try to build
+    """
     with open(path, encoding='utf-8') as ipynb:
         nb = nbformat.read(ipynb, nbformat.NO_CONVERT)
 
@@ -23,16 +33,37 @@ def get_cpp_src_from_ipynb(path):
         nb['cells']
     )
 
-    # markdown cells with source code
+    # markdown cells with C++ source code
     markdown_code_cells = []
     for cell in markdown_cells:
         src = cell['source'].strip()
         if (src.startswith('```') 
             and src.endswith('```')):
-            markdown_code_cells.append(cell)
+            if "c++" in src.splitlines()[0].lower():
+                markdown_code_cells.append(cell)
 
+    result_list = []
+
+    # save the C++ source code and try to build it
     for cell in markdown_code_cells:
-        print(cell['source'])
+        txt = cell['source'].replace('```', '// ```')
+        # obtain temporary file name
+        with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:
+            cpp_file_name = cpp_file.name
+
+        # open the temporary file and write to it
+        with open(cpp_file_name, 'wt') as cpp_file:
+            cpp_file.write(txt)
+
+        # try to build the code
+        compile_command = f"g++ -Wall -g {cpp_file_name}"
+        compile_result = os.system(compile_command)
+        result_list.append(compile_result)
+
+        if os.path.exists(cpp_file_name):
+            os.remove(cpp_file_name)
+
+    return not(any(result_list))
 
 
 def main(arg):
@@ -40,4 +71,13 @@ def main(arg):
 
 
 if "__main__" == __name__:
-    main(sys.argv[1:])
+    if 2 < len(sys.argv):
+        main(sys.argv[1:])
+    else:
+        main(
+            [os.path.abspath(
+                os.path.join(
+                    os.path.split(os.path.abspath(__file__))[0], os.pardir, '01', '01.ipynb'
+                )
+            )]
+        )

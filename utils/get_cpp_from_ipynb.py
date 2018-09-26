@@ -62,6 +62,7 @@ def build_markdown_cpp_cell(cell):
 
     compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
     compile_result = os.system(compile_command)
+    run_result = os.system(os.path.join(os.curdir, name))
 
     # Delete the temporary file
     if os.path.exists(cpp_file_name):
@@ -71,7 +72,7 @@ def build_markdown_cpp_cell(cell):
     if os.path.exists(name):
         os.remove(name)
 
-    return compile_result
+    return (compile_result or run_result)
 
 
 def get_cpp_src_from_ipynb(path):

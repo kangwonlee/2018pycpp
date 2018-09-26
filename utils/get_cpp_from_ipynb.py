@@ -59,7 +59,8 @@ def get_cpp_src_from_ipynb(path):
         # https://www.linuxquestions.org/questions/programming-9/trouble-with-double-complex-numbers-in-c-4175567740/
         # https://stackoverflow.com/questions/31965413/compile-c14-code-with-g
         compile_result = os.system('g++ --version')
-        compile_command = f"g++ -Wall -g -std=c++1y {cpp_file_name}"
+        # Complex literal example needs c++ 14
+        compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name}"
         compile_result = os.system(compile_command)
         result_list.append(compile_result)
 

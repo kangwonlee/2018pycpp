@@ -39,6 +39,7 @@ def test_ipynb_in_folder(folder):
     ext = 'ipynb'
 
     # recursive loop
+    # TODO : Consider changing dirnames to '_'
     for root, dirnames, filenames in os.walk(path):
         if 'ipynb_checkpoints' not in root:
             # files loop

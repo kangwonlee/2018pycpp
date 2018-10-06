@@ -49,7 +49,7 @@ def build_markdown_cpp_cell(cell):
     with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:
         cpp_file_name = cpp_file.name
 
-    name, ext = os.path.splitext(cpp_file_name)
+    name, _ = os.path.splitext(cpp_file_name)
 
     # open the temporary file and write to it
     with open(cpp_file_name, 'wt') as cpp_file:

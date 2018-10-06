@@ -81,15 +81,16 @@ def build_markdown_cpp_cell(cell):
 
         result = os.system(compile_command)
 
-    # Delete the temporary cpp source file
-    if os.path.exists(cpp_file_name):
-        os.remove(cpp_file_name)
-
     # Delete the execution file
     if os.path.exists(name):
         os.remove(name)
 
-    return result
+    result_dict = {
+        'result': result,
+        'cpp_filename': cpp_file_name,
+    }
+
+    return result_dict
 
 
 def get_cpp_src_from_ipynb(path):
@@ -112,9 +113,22 @@ def get_cpp_src_from_ipynb(path):
     )
 
     # save the C++ source code and try to build it
-    result_list = map(build_markdown_cpp_cell, markdown_cpp_code_cells)
+    results_map = map(build_markdown_cpp_cell, markdown_cpp_code_cells)
 
-    return not(any(result_list))
+    results_list = []
+    files_to_delete_list = []
+
+    for d in results_map:
+        cpp_file_name = d['cpp_filename']
+        results_list.append(d['result'])
+        files_to_delete_list.append(cpp_file_name)
+
+    for cpp_file_name in files_to_delete_list:
+        # Delete the temporary cpp source file
+        if os.path.exists(cpp_file_name):
+            os.remove(cpp_file_name)
+
+    return not(any(results_list))
 
 
 def main(arg):

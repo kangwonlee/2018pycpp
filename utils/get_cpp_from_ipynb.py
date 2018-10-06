@@ -137,7 +137,15 @@ def build_markdown_cpp_cell(cell):
 
     if re_main_function.findall(txt):
         # if txt includes the main() function, build execution file
-        compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
+
+        # if the C++ source code seems to have build command, use it
+        if "\n// build command" in txt.lower():
+            compile_command = get_build_command_in_last_line(txt)
+        else:
+            compile_command = ""
+
+        if not compile_command:
+            compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
 
         compile_result = os.system(compile_command)
         run_result = os.system(os.path.join(os.curdir, name))

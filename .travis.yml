@@ -1,6 +1,10 @@
 # ref : Francesco Mosconi, Travis + Anaconda + Jupyter, https://github.com/ghego/travis_anaconda_jupyter
 #       Anaconda Inc., Using conda with Travis CI, Conda documentation, https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
 #       .travis.yml for gcc-5 compiler support on Travis CI , https://gist.github.com/cotsog/3ce84675af0d74438d91
+os :
+  - linux
+  - osx
+
 sudo: required
 
 language: python

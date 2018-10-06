@@ -42,6 +42,9 @@ def get_main_function_pattern():
     return re.compile(r'^[A-Za-z]\w*\s+main\s*\(', re.M)
 
 
+re_main_function = get_main_function_pattern()
+
+
 def build_markdown_cpp_cell(cell):
     """
     Save the C++ source code and try to build it
@@ -64,11 +67,21 @@ def build_markdown_cpp_cell(cell):
     # https://www.linuxquestions.org/questions/programming-9/trouble-with-double-complex-numbers-in-c-4175567740/
     # https://stackoverflow.com/questions/31965413/compile-c14-code-with-g
 
-    compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
-    compile_result = os.system(compile_command)
-    run_result = os.system(os.path.join(os.curdir, name))
+    if re_main_function.findall(txt):
+        # if txt includes the main() function, build execution file
+        compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
 
-    # Delete the temporary file
+        compile_result = os.system(compile_command)
+        run_result = os.system(os.path.join(os.curdir, name))
+
+        result = (compile_result or run_result)
+    else:
+        # if txt does not include main() function, just check grammar
+        compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -fsyntax-only"
+
+        result = os.system(compile_command)
+
+    # Delete the temporary cpp source file
     if os.path.exists(cpp_file_name):
         os.remove(cpp_file_name)
 
@@ -76,7 +89,7 @@ def build_markdown_cpp_cell(cell):
     if os.path.exists(name):
         os.remove(name)
 
-    return (compile_result or run_result)
+    return result
 
 
 def get_cpp_src_from_ipynb(path):

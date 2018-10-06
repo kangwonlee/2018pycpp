@@ -79,8 +79,11 @@ def build_markdown_cpp_cell(cell):
     # Comment out ```'s
     txt = cell['source'].replace('```', '// ```')
 
-    # obtain temporary file name
-    cpp_file_name = get_temp_cpp_filename()
+    cpp_file_name = get_filename_in_second_line(txt)
+
+    if not cpp_file_name:
+        # obtain temporary file name
+        cpp_file_name = get_temp_cpp_filename()
 
     name, _ = os.path.splitext(cpp_file_name)
 

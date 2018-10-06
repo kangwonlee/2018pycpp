@@ -80,8 +80,7 @@ def build_markdown_cpp_cell(cell):
     txt = cell['source'].replace('```', '// ```')
 
     # obtain temporary file name
-    with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:
-        cpp_file_name = cpp_file.name
+    cpp_file_name = get_temp_cpp_filename()
 
     name, _ = os.path.splitext(cpp_file_name)
 
@@ -118,6 +117,16 @@ def build_markdown_cpp_cell(cell):
     }
 
     return result_dict
+
+
+def get_temp_cpp_filename():
+    """
+    Generate a temporary filename
+    """
+    # obtain temporary file name
+    with tempfile.NamedTemporaryFile(suffix=".cpp", mode='wt') as cpp_file:
+        cpp_file_name = cpp_file.name
+    return cpp_file_name
 
 
 def get_cpp_src_from_ipynb(path):

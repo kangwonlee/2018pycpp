@@ -132,7 +132,7 @@ def get_cpp_src_from_ipynb(path):
 
 
 def main(arg):
-    get_cpp_src_from_ipynb(arg[0])
+    print('return value = ', get_cpp_src_from_ipynb(arg[0]))
 
 
 if "__main__" == __name__:
@@ -146,10 +146,6 @@ if "__main__" == __name__:
                 os.pardir,
                 '00.ipynb',
                 )
-        )
-                os.pardir,
-                '00.ipynb',
-            )
         )
 
         if os.path.exists(ipynb_00):

@@ -139,10 +139,18 @@ if "__main__" == __name__:
     if 2 < len(sys.argv):
         main(sys.argv[1:])
     else:
-        main(
-            [os.path.abspath(
+
+        ipynb_00 = os.path.abspath(
                 os.path.join(
-                    os.path.split(os.path.abspath(__file__))[0], os.pardir, '01', '01.ipynb'
+                os.path.split(os.path.abspath(__file__))[0],
+                os.pardir,
+                '00.ipynb',
                 )
-            )]
         )
+                os.pardir,
+                '00.ipynb',
+            )
+        )
+
+        if os.path.exists(ipynb_00):
+            main([ipynb_00])

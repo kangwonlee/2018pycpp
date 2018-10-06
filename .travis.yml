@@ -75,7 +75,7 @@ install:
   - conda list
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
-script: cd tests && py.test
+script: py.test --ignore=utils/nbutils
 notifications:
     email:
         - kangwon.lee.edu@gmail.com

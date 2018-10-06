@@ -72,6 +72,45 @@ def get_filename_in_second_line(cpp_txt):
 re_main_function = get_main_function_pattern()
 
 
+def get_build_command_in_last_line(cpp_txt):
+    """
+    From the last line of cpp_txt, get the build command
+
+    Expected input argument:
+    // ...
+    // End account_module_user.cpp
+    // Build command : g++ -Wall -g account_module.cpp account_module_user.cpp
+    // ```
+
+    Expected output argument in this case:
+    "g++ -Wall -g account_module.cpp account_module_user.cpp"
+    """
+
+    result = ""
+
+    # Starting from the last line.
+    cpp_lines = cpp_txt.splitlines()
+    cpp_lines.reverse()
+
+    # Source code loop
+    for line in cpp_lines:
+        # Check comment lines only
+        if line.strip().lower().startswith('//'):
+            # ignore if too short
+            if 4 < len(line.lower().split()):
+                # Check words
+                if (
+                    ('build' == line.lower().split()[1]) 
+                    and ('command' == line.lower().split()[2])
+                    and (':' == line.lower().split()[3])
+                ):
+                    # reassemble compile command
+                    result = ' '.join(line.split()[4:])
+                    break
+
+    return result
+
+
 def build_markdown_cpp_cell(cell):
     """
     Save the C++ source code and try to build it

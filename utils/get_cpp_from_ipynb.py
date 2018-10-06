@@ -38,6 +38,10 @@ def is_markdown_cpp_src(ipynb_cell):
     return result
 
 
+def get_main_function_pattern():
+    return re.compile(r'^[A-Za-z]\w*\s+main\s*\(', re.M)
+
+
 def build_markdown_cpp_cell(cell):
     """
     Save the C++ source code and try to build it

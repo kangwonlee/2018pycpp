@@ -42,6 +42,33 @@ def get_main_function_pattern():
     return re.compile(r'^[A-Za-z]\w*\s+main\s*\(', re.M)
 
 
+def get_filename_in_second_line(cpp_txt):
+    """
+    From the second line of cpp_txt, get the filename
+
+    Expected input argument:
+    // ```
+    // Begin file_name.cpp
+    // ...
+
+    Expected output argument in this case:
+    file_name.cpp
+    """
+
+    result = ""
+
+    for line in cpp_txt.splitlines():
+        if line.strip().lower().startswith('//'):
+            # ignore if too short
+            if 2 < len(line.lower().split()):
+                # If second word is 'begin'
+                if 'begin' == line.lower().split()[1]:
+                    result = line.lower().split()[-1]
+                    break
+
+    return result
+
+
 re_main_function = get_main_function_pattern()
 
 

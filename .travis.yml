@@ -1,19 +1,20 @@
 # ref : Francesco Mosconi, Travis + Anaconda + Jupyter, https://github.com/ghego/travis_anaconda_jupyter
 #       Anaconda Inc., Using conda with Travis CI, Conda documentation, https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
 #       .travis.yml for gcc-5 compiler support on Travis CI , https://gist.github.com/cotsog/3ce84675af0d74438d91
-os :
-  - linux
-  - osx
+#       CodeChat, .travis.yml - Travis CI configuration, https://pythonhosted.org/CodeChat/.travis.yml.html
 
-sudo: required
 
-language: python
+matrix:
+  include:
+  - os : linux
+    dist: trusty
+    sudo: required
+    language: python
+    python:
+      - "3.6"
+      - "3.7"
+      - "nightly"
 
-dist: trusty
-
-python:
-  - "3.6"
-  - "nightly"
 
 before_install:
   # C++14
@@ -39,9 +40,11 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
-            conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
+      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
+    elif [[ "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then
+      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.7.yml;
     else
-        conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
+      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
     fi
   - source activate test-environment
   - conda list

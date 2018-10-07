@@ -111,12 +111,12 @@ def get_build_command_in_last_line(cpp_txt):
     return result
 
 
-def build_markdown_cpp_cell(cell):
+def build_markdown_cpp_cell(ipynb_cell):
     """
     Save the C++ source code and try to build it
     """
     # Comment out ```'s
-    txt = cell['source'].replace('```', '// ```')
+    txt = ipynb_cell['source'].replace('```', '// ```')
 
     cpp_file_name = get_filename_in_second_line(txt)
 

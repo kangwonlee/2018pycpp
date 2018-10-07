@@ -124,7 +124,7 @@ def build_markdown_cpp_cell(ipynb_cell):
         # obtain temporary file name
         cpp_file_name = get_temp_cpp_filename()
 
-    name, _ = os.path.splitext(cpp_file_name)
+    cpp_file_basename, _ = os.path.splitext(cpp_file_name)
 
     # open the temporary file and write to it
     with open(cpp_file_name, 'wt') as cpp_file:
@@ -145,10 +145,10 @@ def build_markdown_cpp_cell(ipynb_cell):
             compile_command = ""
 
         if not compile_command:
-            compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
+            compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {cpp_file_basename}"
 
         compile_result = os.system(compile_command)
-        run_result = os.system(os.path.join(os.curdir, name))
+        run_result = os.system(os.path.join(os.curdir, cpp_file_basename))
 
         result = (compile_result or run_result)
     else:
@@ -158,8 +158,8 @@ def build_markdown_cpp_cell(ipynb_cell):
         result = os.system(compile_command)
 
     # Delete the execution file
-    if os.path.exists(name):
-        os.remove(name)
+    if os.path.exists(cpp_file_basename):
+        os.remove(cpp_file_basename)
 
     result_dict = {
         'result': result,

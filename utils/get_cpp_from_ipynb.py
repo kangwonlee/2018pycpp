@@ -199,6 +199,11 @@ def get_cpp_src_from_ipynb(path):
     )
 
     # save the C++ source code and try to build it
+    return map_build_run_over_markdown_cpp_cells(markdown_cpp_code_cells)
+
+
+def map_build_run_over_markdown_cpp_cells(markdown_cpp_code_cells):
+    # save the C++ source code and try to build it
     results_map = map(build_markdown_cpp_cell, markdown_cpp_code_cells)
 
     results_list = []

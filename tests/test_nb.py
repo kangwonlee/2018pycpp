@@ -31,6 +31,13 @@ folder_list = (
     '00', '01', '02', '03', '04',
 )
 
+base_folder = os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
+
+@pytest.mark.parametrize("folder", folder_list)
+def test_base_path(folder):
+    assert folder in os.listdir(base_folder), f"Folder {folder} not in {base_folder}"
+    assert os.path.isdir(os.path.join(base_folder, folder)), f"{os.path.join(base_folder, folder)} doesn't seem like a folder"
+
 
 # https://docs.pytest.org/en/latest/example/parametrize.html
 @pytest.mark.parametrize("folder", folder_list)

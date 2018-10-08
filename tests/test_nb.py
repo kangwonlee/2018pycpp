@@ -61,7 +61,7 @@ def test_ipynb_in_folder(folder):
 # https://docs.pytest.org/en/latest/example/parametrize.html
 @pytest.mark.parametrize("folder", folder_list)
 def test_cpp_in_ipynb_in_folder(folder):
-    path = os.path.join(os.pardir, folder)
+    path = os.path.join(base_folder, folder)
     ext = 'ipynb'
 
     if gcpp.has_gpp():

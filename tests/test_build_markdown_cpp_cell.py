@@ -1,6 +1,6 @@
-import utils.get_cpp_from_ipynb as gcpp 
 import pytest
 
+from . import get_cpp_from_ipynb as gcpp
 
 cpp_test_cases = [
 [{'cell_type': 'markdown', 'metadata': {}, 'source': '``` C++\n// Begin account_module.h\n#include <cstdint>\n\nvoid deposit (int32_t amount);\nvoid withdraw (int32_t amount);\nint32_t check();\n// End account_module.h\n```'},

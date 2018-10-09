@@ -1,6 +1,6 @@
-import utils.get_cpp_from_ipynb as gcpp 
 import pytest
 
+from . import get_cpp_from_ipynb as gcpp
 
 cpp_compile_test_case = """// Begin account_module_user.cpp
 #include <iostream>

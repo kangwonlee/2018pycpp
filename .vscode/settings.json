@@ -1,0 +1,8 @@
+{
+    "python.unitTest.pyTestArgs": [
+        "--ignore=utils/nbutils"
+    ],
+    "python.unitTest.unittestEnabled": false,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.pyTestEnabled": true
+}

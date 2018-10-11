@@ -111,12 +111,12 @@ def get_build_command_in_last_line(cpp_txt):
     return result
 
 
-def build_markdown_cpp_cell(cell):
+def build_markdown_cpp_cell(ipynb_cell):
     """
     Save the C++ source code and try to build it
     """
     # Comment out ```'s
-    txt = cell['source'].replace('```', '// ```')
+    txt = ipynb_cell['source'].replace('```', '// ```')
 
     cpp_file_name = get_filename_in_second_line(txt)
 
@@ -124,7 +124,7 @@ def build_markdown_cpp_cell(cell):
         # obtain temporary file name
         cpp_file_name = get_temp_cpp_filename()
 
-    name, _ = os.path.splitext(cpp_file_name)
+    cpp_file_basename, _ = os.path.splitext(cpp_file_name)
 
     # open the temporary file and write to it
     with open(cpp_file_name, 'wt') as cpp_file:
@@ -145,10 +145,10 @@ def build_markdown_cpp_cell(cell):
             compile_command = ""
 
         if not compile_command:
-            compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {name}"
+            compile_command = f"g++ -Wall -g -std=c++14 {cpp_file_name} -o {cpp_file_basename}"
 
         compile_result = os.system(compile_command)
-        run_result = os.system(os.path.join(os.curdir, name))
+        run_result = os.system(os.path.join(os.curdir, cpp_file_basename))
 
         result = (compile_result or run_result)
     else:
@@ -158,8 +158,8 @@ def build_markdown_cpp_cell(cell):
         result = os.system(compile_command)
 
     # Delete the execution file
-    if os.path.exists(name):
-        os.remove(name)
+    if os.path.exists(cpp_file_basename):
+        os.remove(cpp_file_basename)
 
     result_dict = {
         'result': result,
@@ -198,6 +198,11 @@ def get_cpp_src_from_ipynb(path):
         nb['cells']
     )
 
+    # save the C++ source code and try to build it
+    return map_build_run_over_markdown_cpp_cells(markdown_cpp_code_cells)
+
+
+def map_build_run_over_markdown_cpp_cells(markdown_cpp_code_cells):
     # save the C++ source code and try to build it
     results_map = map(build_markdown_cpp_cell, markdown_cpp_code_cells)
 

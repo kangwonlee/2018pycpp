@@ -16,7 +16,6 @@ matrix:
       sudo: required
       python: "3.7"
     - os : linux
-      sudo: required
       python: "nightly"
     - os : osx
       sudo: required
@@ -66,24 +65,17 @@ install:
   - conda info -a
   # Apply python module recipies
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
-      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./00/tests/environment.3.6.yml;
+      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
     elif [[ "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then
-      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./00/tests/environment.3.7.yml;
+      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.7.yml;
     else
-      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./00/tests/environment.nightly.yml;
+      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
     fi
   - source activate test-environment
   - conda list
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
-script: 
-  - cd $TRAVIS_BUILD_DIR/00 && py.test
-  - cd $TRAVIS_BUILD_DIR/01 && py.test
-  - cd $TRAVIS_BUILD_DIR/02 && py.test
-  - cd $TRAVIS_BUILD_DIR/03 && py.test
-  - cd $TRAVIS_BUILD_DIR/04 && py.test
-  - cd $TRAVIS_BUILD_DIR/05 && py.test
-
+script: py.test 
 notifications:
     email:
         - kangwon.lee.edu@gmail.com

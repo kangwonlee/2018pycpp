@@ -27,6 +27,9 @@ matrix:
     - os : osx
       sudo: required
       python: "nightly"
+    - os : windows
+      sudo: required
+      python: "3.6"
 
 before_install:
   # When C++14 support becomes more clear, consider revision
@@ -49,9 +52,20 @@ install:
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
     elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
+    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Windows-x86_64.exe -O miniconda.exe;
     fi
   # Install miniconda
-  - bash miniconda.sh -b -p $HOME/miniconda
+  - 
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      bash miniconda.sh -b -p $HOME/miniconda;
+    elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      # https://conda.io/docs/user-guide/install/macos.html#installing-in-silent-mode
+      bash miniconda.sh -b -p $HOME/miniconda;
+    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      # https://conda.io/docs/user-guide/install/windows.html
+      miniconda.exe /S /D=$HOME/miniconda;
+    fi
   # Add miniconda path
   - export PATH="$HOME/miniconda/bin:$PATH"
   # Forget all rememberd locations
@@ -77,13 +91,12 @@ install:
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
 script: 
-  - cwd=$(pwd)
-  - cd $cwd/00 && py.test
-  - cd $cwd/01 && py.test
-  - cd $cwd/02 && py.test
-  - cd $cwd/03 && py.test
-  - cd $cwd/04 && py.test
-  - cd $cwd/05 && py.test
+  - cd $TRAVIS_BUILD_DIR/00 && py.test
+  - cd $TRAVIS_BUILD_DIR/01 && py.test
+  - cd $TRAVIS_BUILD_DIR/02 && py.test
+  - cd $TRAVIS_BUILD_DIR/03 && py.test
+  - cd $TRAVIS_BUILD_DIR/04 && py.test
+  - cd $TRAVIS_BUILD_DIR/05 && py.test
 
 notifications:
     email:

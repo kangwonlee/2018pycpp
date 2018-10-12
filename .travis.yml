@@ -76,12 +76,13 @@ install:
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
 script: 
-  - cd 00 && py.test
-  - cd 01 && py.test
-  - cd 02 && py.test
-  - cd 03 && py.test
-  - cd 04 && py.test
-  - cd 05 && py.test
+  - cwd=$(pwd)
+  - cd $cwd/00 && py.test
+  - cd $cwd/01 && py.test
+  - cd $cwd/02 && py.test
+  - cd $cwd/03 && py.test
+  - cd $cwd/04 && py.test
+  - cd $cwd/05 && py.test
 
 notifications:
     email:

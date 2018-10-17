@@ -141,3 +141,6 @@ venv.bak/
 # vector drawing
 *.svg
 
+# Visual Studio Code
+.vscode/
+

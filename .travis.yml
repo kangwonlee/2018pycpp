@@ -33,10 +33,10 @@ matrix:
       sudo: required
       python: "nightly"
       env: TOXENV=nightly
-#    - os : windows
-#      sudo: required
-#      python: "3.6"
-#      env: TOXENV=3.6
+    - os : windows
+      sudo: required
+      python: "3.6"
+      env: TOXENV=3.6
 
 before_install:
   # When C++14 support becomes more clear, consider revision

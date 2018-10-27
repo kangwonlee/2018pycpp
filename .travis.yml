@@ -11,25 +11,32 @@ matrix:
     - os : linux
       sudo: required
       python: "3.6"
+      env: TOXENV=3.6
     - os : linux
       # When python 3.7 support becomes more clear, consider revision
       sudo: required
       python: "3.7"
+      env: TOXENV=3.7
     - os : linux
       sudo: required
       python: "nightly"
+      env: TOXENV=nightly
     - os : osx
       sudo: required
       python: "3.6"
+      env: TOXENV=3.6
     - os : osx
       sudo: required
       python: "3.7"
+      env: TOXENV=3.7
     - os : osx
       sudo: required
       python: "nightly"
-    - os : windows
-      sudo: required
-      python: "3.6"
+      env: TOXENV=nightly
+#    - os : windows
+#      sudo: required
+#      python: "3.6"
+#      env: TOXENV=3.6
 
 before_install:
   # When C++14 support becomes more clear, consider revision
@@ -80,23 +87,23 @@ install:
   - conda info -a
   # Apply python module recipies
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
-      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.6.yml;
+      conda env create -n test-environment python=$TOXENV -f ./tests/environment.3.6.yml;
     elif [[ "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then
-      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.3.7.yml;
+      conda env create -n test-environment python=$TOXENV -f ./tests/environment.3.7.yml;
     else
-      conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f ./tests/environment.nightly.yml;
+      conda env create -n test-environment python=$TOXENV -f ./tests/environment.nightly.yml;
     fi
   - source activate test-environment
   - conda list
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
 script: 
-  - cd $TRAVIS_BUILD_DIR/00 && py.test
-  - cd $TRAVIS_BUILD_DIR/01 && py.test
-  - cd $TRAVIS_BUILD_DIR/02 && py.test
-  - cd $TRAVIS_BUILD_DIR/03 && py.test
-  - cd $TRAVIS_BUILD_DIR/04 && py.test
-  - cd $TRAVIS_BUILD_DIR/05 && py.test
+  - py.test 00
+  - py.test 01
+  - py.test 02
+  - py.test 03
+  - py.test 04
+  - py.test 05
 
 notifications:
     email:

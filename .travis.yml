@@ -82,7 +82,7 @@ install:
   - conda list
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
-script: 
+script:
   - py.test 00
   - py.test 01
   - py.test 02

@@ -33,10 +33,6 @@ matrix:
       sudo: required
       python: "nightly"
       env: TOXENV=nightly
-    - os : windows
-      sudo: required
-      python: "3.6"
-      env: TOXENV=3.6
 
 before_install:
   # When C++14 support becomes more clear, consider revision
@@ -59,20 +55,9 @@ install:
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
     elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
-    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Windows-x86_64.exe -O miniconda.exe;
     fi
   # Install miniconda
-  - 
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      bash miniconda.sh -b -p $HOME/miniconda;
-    elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      # https://conda.io/docs/user-guide/install/macos.html#installing-in-silent-mode
-      bash miniconda.sh -b -p $HOME/miniconda;
-    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      # https://conda.io/docs/user-guide/install/windows.html
-      miniconda.exe /S /D=$HOME/miniconda;
-    fi
+  - bash miniconda.sh -b -p $HOME/miniconda
   # Add miniconda path
   - export PATH="$HOME/miniconda/bin:$PATH"
   # Forget all rememberd locations
@@ -86,9 +71,9 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   # Apply python module recipies
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then
+  - if [[ "$TOXENV" == "3.6" ]]; then
       conda env create -n test-environment python=$TOXENV -f ./tests/environment.3.6.yml;
-    elif [[ "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then
+    elif [[ "$TOXENV" == "3.7" ]]; then
       conda env create -n test-environment python=$TOXENV -f ./tests/environment.3.7.yml;
     else
       conda env create -n test-environment python=$TOXENV -f ./tests/environment.nightly.yml;
@@ -97,14 +82,7 @@ install:
   - conda list
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
-script: 
-  - py.test 00
-  - py.test 01
-  - py.test 02
-  - py.test 03
-  - py.test 04
-  - py.test 05
-
+script: py.test
 notifications:
     email:
         - kangwon.lee.edu@gmail.com

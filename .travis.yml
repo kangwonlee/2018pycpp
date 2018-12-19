@@ -52,19 +52,34 @@ install:
       fi;
     fi
   # Install miniconda
-  - bash miniconda.sh -b -p $HOME/miniconda
-  # Add miniconda path
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  # Forget all rememberd locations
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      if [[ -d $HOME/miniconda/bin && $CONDA_PYTHON != "nightly" ]]; then
+        echo "miniconda for posix already available";
+      else
+        echo "installing miniconda for posix";
+        bash $HOME/download/miniconda.sh -b -u -p $HOME/miniconda;
+      fi;
+      export PATH="$HOME/miniconda:$HOME/miniconda/bin:$PATH";
+      hash -r;
+    elif  [[ "$TRAVIS_OS_NAME" == "windows" && $CONDA_PYTHON != "nightly" ]]; then
+      if [[ -d $HOME/miniconda/scripts ]]; then
+        echo "miniconda for Windows already installed";
+      else
+        echo "installing miniconda for windows";
+        choco install miniconda3 --params="'/D:$HOME/miniconda'";
+      fi;
+      export PATH="$HOME/miniconda:$HOME/miniconda/scripts:$PATH";
+    fi
+  # To help debugging
+  - echo $TRAVIS_OS_NAME
+  - echo $CONDA_PYTHON  # Add miniconda path
+  - conda info -a
+  # Forget all remembered locations
   - hash -r
   # Conda setup options
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
-  # To help debugging
-  - echo $TRAVIS_OS_NAME
-  - echo $CONDA_PYTHON
   # Useful for debugging any issues with conda
-  - conda info -a
   # Apply python module recipies
   - if [[ "$CONDA_PYTHON" == "3.6" ]]; then
       conda env create -n test-environment python=$CONDA_PYTHON -f ./00/tests/environment.3.6.yml;

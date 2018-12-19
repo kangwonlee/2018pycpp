@@ -91,14 +91,8 @@ install:
   - source activate test-environment
   - conda list
 
-# https://lord.io/blog/2014/travis-multiple-subdirs/
 script: 
-  - cd $TRAVIS_BUILD_DIR/00 && py.test
-  - cd $TRAVIS_BUILD_DIR/01 && py.test
-  - cd $TRAVIS_BUILD_DIR/02 && py.test
-  - cd $TRAVIS_BUILD_DIR/03 && py.test
-  - cd $TRAVIS_BUILD_DIR/04 && py.test
-  - cd $TRAVIS_BUILD_DIR/05 && py.test
+  - cd tests && py.test
 
 notifications:
     email:

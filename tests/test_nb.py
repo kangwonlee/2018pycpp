@@ -48,29 +48,45 @@ def _exec_notebook(path):
         # and raise if error
         subprocess.check_call(args)
 
-# Find absolute path of the parent folder
-# This file assumes the parent folder contains a number of .ipynb files
-base_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
 
 # Prepare a list of ipynb files of the base_path
-ipynb_file_list = [filename for filename in os.listdir(base_path) if filename.endswith('.ipynb')]
+def make_file_list(path=os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir)), ext='ipynb'):
+
+    file_list = []
+
+    # recursive loop
+    for root, _, filenames in os.walk(path):
+        if not (
+                ('.ipynb_checkpoints' in root)
+                or ('.git' in root)
+                or ('__pycache__'in root)
+                or ('.pytest_cache' in root)
+            ):
+            # files loop
+            for filename in filenames:
+                if os.path.splitext(filename)[-1].endswith(ext):
+                    file_list.append(os.path.join(root, filename))
+
+    return file_list
+
+ipynb_file_list = make_file_list()
 
 
 # https://docs.pytest.org/en/latest/example/parametrize.html
 @pytest.mark.parametrize("filename", ipynb_file_list)
 def test_execute_ipynb(filename):
-    print('execute_ipynb() : %s %s' % (base_path, filename))
+    print(f'execute_ipynb() : {filename}')
     # run .ipynb file
-    _exec_notebook(os.path.join(base_path, filename))
+    _exec_notebook(filename)
 
 
 # https://docs.pytest.org/en/latest/example/parametrize.html
 @pytest.mark.parametrize("filename", ipynb_file_list)
 def test_cpp_in_ipynb(filename):
-    print('test_cpp_in_ipynb() : %s %s' % (base_path, filename))
+    print(f'test_cpp_in_ipynb() : {filename}')
     # separate .cpp code blocks from the ipynb file,
     # build, and run
-    assert gcpp.get_cpp_src_from_ipynb(os.path.join(base_path, filename))
+    assert gcpp.get_cpp_src_from_ipynb(filename)
 
 
 @pytest.mark.parametrize("filename", ipynb_file_list)

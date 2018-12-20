@@ -96,7 +96,7 @@ install:
         echo "miniconda for Windows already installed";
       else
         echo "installing miniconda for windows";
-        start /wait "" $HOME/download/miniconda.exe /AddToPath:1 /D=$HOME/miniconda;
+        $HOME/download/miniconda.exe /AddToPath:1 /D=$HOME/miniconda;
       fi;
     fi
   - export PATH="$CONDA_PATH:$CONDA_SUB_PATH:$PATH";

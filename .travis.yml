@@ -30,6 +30,13 @@ cache :
     - $HOME/miniconda
     - $HOME/AppData/Local/Temp/chocolatey
 
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-6
+
 before_install:
   # When C++14 support becomes more clear, consider revision
   # https://docs.travis-ci.com/user/multi-os/

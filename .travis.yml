@@ -54,9 +54,11 @@ addons:
 before_install:
   # https://docs.travis-ci.com/user/multi-os/
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      echo "OS is not Windows";
       if [[ -f $HOME/download/miniconda.sh && $CONDA_PYTHON != "nightly" ]]; then
         echo "miniconda.sh for posix already available";
       else
+        echo "miniconda.sh for not available";
         mkdir -p $HOME/download;
         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
           echo "downloading miniconda.sh for linux";
@@ -69,6 +71,9 @@ before_install:
     fi
 
 install:
+  # To help debugging
+  - echo $TRAVIS_OS_NAME
+  - echo $CONDA_PYTHON
   # When C++14 support becomes more clear, consider revision
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90;
@@ -83,29 +88,25 @@ install:
     fi
   # Install miniconda
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      if [[ -d $CONDA_SUB_PATH && $CONDA_PYTHON != "nightly" ]]; then
+      echo "OS is not Windows";
+      if [[ -e $CONDA_SUB_PATH/conda && $CONDA_PYTHON != "nightly" ]]; then
         echo "miniconda for posix already available";
       else
         echo "installing miniconda for posix";
         bash $HOME/download/miniconda.sh -b -u -p $HOME/miniconda;
       fi;
-    elif  [[ "$TRAVIS_OS_NAME" == "windows" && $CONDA_PYTHON != "nightly" ]]; then
-      if [[ -e $CONDA_SUB_PATH/conda ]]; then
+    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      echo "OS is Windows";
+      if [[ -e $CONDA_SUB_PATH/conda && $CONDA_PYTHON != "nightly" ]];then
         echo "miniconda for Windows already installed";
       else
         echo "installing miniconda for windows";
         choco install miniconda3 --params="'/AddToPath:1'";
       fi;
-    elif [[ "$TRAVIS_OS_NAME" == "windows" && $CONDA_PYTHON == "nightly" ]]; then
-      echo "installing miniconda for windows";
-      choco install miniconda3 --params="'/AddToPath:1'";
     fi
   - export PATH="$CONDA_PATH:$CONDA_SUB_PATH:$PATH";
   # Forget all remembered locations
   - hash -r
-  # To help debugging
-  - echo $TRAVIS_OS_NAME
-  - echo $CONDA_PYTHON
   - which conda;
   - conda info -a
   # Conda setup options

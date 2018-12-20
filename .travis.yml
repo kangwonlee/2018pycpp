@@ -70,7 +70,7 @@ install:
       export PATH="$HOME/miniconda:$HOME/miniconda/bin:$PATH";
       hash -r;
     elif  [[ "$TRAVIS_OS_NAME" == "windows" && $CONDA_PYTHON != "nightly" ]]; then
-      if [[ -d $HOME/miniconda/scripts ]]; then
+      if [[ -e $HOME/miniconda/scripts/conda ]]; then
         echo "miniconda for Windows already installed";
       else
         echo "installing miniconda for windows";

@@ -88,21 +88,30 @@ install:
     fi
   # To help debugging
   - echo $TRAVIS_OS_NAME
-  - echo $CONDA_PYTHON  # Add miniconda path
+  - echo $CONDA_PYTHON
   - conda info -a
   # Forget all remembered locations
   - hash -r
   # Conda setup options
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
-  # Useful for debugging any issues with conda
-  # Apply python module recipies
-  - if [[ "$CONDA_PYTHON" == "3.6" ]]; then
-      conda env create -n test-environment python=$CONDA_PYTHON -f ./00/tests/environment.3.6.yml;
-    elif [[ "$CONDA_PYTHON" == "3.7" ]]; then
-      conda env create -n test-environment python=$CONDA_PYTHON -f ./00/tests/environment.3.7.yml;
-    else
-      conda env create -n test-environment python=$CONDA_PYTHON -f ./00/tests/environment.nightly.yml;
+  # Create or update test environment of python module recipies
+  - if [[ ! -d $HOME/miniconda/envs/test-environment ]]; then
+      if [[ "$CONDA_PYTHON" == "3.6" ]]; then
+        conda env create -n test-environment python=$CONDA_PYTHON -f ./tests/environment.3.6.yml;
+      elif [[ "$CONDA_PYTHON" == "3.7" ]]; then
+        conda env create -n test-environment python=$CONDA_PYTHON -f ./tests/environment.3.7.yml;
+      else
+        conda env create -n test-environment python=$CONDA_PYTHON -f ./tests/environment.nightly.yml;
+      fi;
+    elif [[ -d $HOME/miniconda/envs/test-environment ]]; then
+      if [[ "$CONDA_PYTHON" == "3.6" ]]; then
+        conda env update -n test-environment python=$CONDA_PYTHON -f ./tests/environment.3.6.yml;
+      elif [[ "$CONDA_PYTHON" == "3.7" ]]; then
+        conda env update -n test-environment python=$CONDA_PYTHON -f ./tests/environment.3.7.yml;
+      else
+        conda env update -n test-environment python=$CONDA_PYTHON -f ./tests/environment.nightly.yml;
+      fi;
     fi
   - source activate test-environment
   - conda list

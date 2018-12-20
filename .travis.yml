@@ -53,23 +53,6 @@ addons:
       - g++-6
 
 before_install:
-  # https://docs.travis-ci.com/user/multi-os/
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      echo "OS is not Windows";
-      if [[ -f $HOME/download/miniconda.sh && $CONDA_PYTHON != "nightly" ]]; then
-        echo "miniconda.sh for posix already available";
-      else
-        echo "miniconda.sh for not available";
-        mkdir -p $HOME/download;
-        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-          echo "downloading miniconda.sh for linux";
-          wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/download/miniconda.sh;
-        elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-          echo "downloading miniconda.sh for osx";
-          wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O $HOME/download/miniconda.sh;
-        fi;
-      fi;
-    fi
 
 install:
   # To help debugging
@@ -87,25 +70,48 @@ install:
       CONDA_PATH=/c/tools/miniconda3;
       CONDA_SUB_PATH=$CONDA_PATH/Scripts;
     fi
-  # Install miniconda
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      echo "OS is not Windows";
-      if [[ -e $CONDA_SUB_PATH/conda && $CONDA_PYTHON != "nightly" ]]; then
-        echo "miniconda for posix already available";
-      else
-        echo "installing miniconda for posix";
-        bash $HOME/download/miniconda.sh -b -u -p $HOME/miniconda;
-      fi;
-    elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      echo "OS is Windows";
-      if [[ -e $CONDA_SUB_PATH/conda && $CONDA_PYTHON != "nightly" ]];then
-        echo "miniconda for Windows already installed";
-      else
-        echo "installing miniconda for windows";
-        choco install miniconda3 --params="'/AddToPath:1'";
-      fi;
-    fi
+  # export expected path for cache
   - export PATH="$CONDA_PATH:$CONDA_SUB_PATH:$PATH";
+  - if [[ -e `which conda` ]]; then
+      echo "conda ready";
+    else
+      echo "conda not ready yet";
+      echo "download miniconda";
+      if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+        echo "OS is not Windows";
+        if [[ -f $HOME/download/miniconda.sh && $CONDA_PYTHON != "nightly" ]]; then
+          echo "miniconda.sh for posix already available";
+        else
+          echo "miniconda.sh for not available";
+          mkdir -p $HOME/download;
+          if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+            echo "downloading miniconda.sh for linux";
+            wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/download/miniconda.sh;
+          elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+            echo "downloading miniconda.sh for osx";
+            wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O $HOME/download/miniconda.sh;
+          fi;
+        fi;
+      fi;
+      echo "install miniconda";
+      if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+        echo "OS is not Windows";
+        if [[ -e $CONDA_SUB_PATH/conda && $CONDA_PYTHON != "nightly" ]]; then
+          echo "miniconda for posix already available";
+        else
+          echo "installing miniconda for posix";
+          bash $HOME/download/miniconda.sh -b -u -p $HOME/miniconda;
+        fi;
+      elif  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+        echo "OS is Windows";
+        if [[ -e $CONDA_SUB_PATH/conda && $CONDA_PYTHON != "nightly" ]];then
+          echo "miniconda for Windows already installed";
+        else
+          echo "installing miniconda for windows";
+          choco install miniconda3 --params="'/AddToPath:1'";
+        fi;
+      fi;
+    fi;
   # Forget all remembered locations
   - hash -r
   - which conda;

@@ -75,8 +75,11 @@ install:
       else
         echo "installing miniconda for windows";
         choco install miniconda3 --params="'/D:$HOME/miniconda'";
+        ls $HOME/miniconda;
+        ls $HOME/miniconda/scripts;
       fi;
       export PATH="$HOME/miniconda:$HOME/miniconda/scripts:$PATH";
+      which conda;
     fi
   # To help debugging
   - echo $TRAVIS_OS_NAME

@@ -55,7 +55,7 @@ before_install:
         fi;
       fi;
     elif [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      echo "OS not Windows";
+      echo "OS is Windows";
       if [[ -f $HOME/download/miniconda.exe && $CONDA_PYTHON != "nightly" ]]; then
         echo "miniconda.exe for windows already available";
       else

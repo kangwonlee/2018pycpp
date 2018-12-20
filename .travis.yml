@@ -54,7 +54,16 @@ before_install:
           wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O $HOME/download/miniconda.sh;
         fi;
       fi;
-    fi
+    elif [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      echo "OS not Windows";
+      if [[ -f $HOME/download/miniconda.exe && $CONDA_PYTHON != "nightly" ]]; then
+        echo "miniconda.exe for windows already available";
+      else
+        echo "getting miniconda.exe for windows";
+        mkdir --parents $HOME/download;
+        wget https://repo.continuum.io/miniconda/Miniconda3-4.5.11-Windows-x86_64.exe -O $HOME/download/miniconda.exe;
+      fi;
+    fi;
 
 install:
   # To help debugging

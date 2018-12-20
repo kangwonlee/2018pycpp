@@ -101,6 +101,7 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
       grep --line-number miniconda /C/ProgramData/chocolatey/logs/chocolatey.log;
     fi;
+  - ls $HOME/miniconda;
   # To help debugging
   - echo $TRAVIS_OS_NAME
   - echo $CONDA_PYTHON

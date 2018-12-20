@@ -22,13 +22,27 @@ matrix:
   fast_finish: true
 
 before_cache:
-- rm -rf $HOME/miniconda/locks $HOME/miniconda/pkgs $HOME/miniconda/var $HOME/miniconda/conda-meta/history $HOME/miniconda/envs/test-environment/conda-meta/history $HOME/miniconda/lib/python3.6/__pycache__ $HOME/miniconda/lib/python3.7/__pycache__
+  - rm -rf $HOME/miniconda/locks 
+  - rm -rf $HOME/miniconda/pkgs 
+  - rm -rf $HOME/miniconda/var 
+  - rm -rf $HOME/miniconda/conda-meta/history 
+  - rm -rf $HOME/miniconda/envs/test-environment/conda-meta/history 
+  - rm -rf $HOME/miniconda/lib/python3.6/__pycache__ 
+  - rm -rf $HOME/miniconda/lib/python3.7/__pycache__
+  - rm -rf /c/tools/miniconda3/locks 
+  - rm -rf /c/tools/miniconda3/pkgs 
+  - rm -rf /c/tools/miniconda3/var 
+  - rm -rf /c/tools/miniconda3/conda-meta/history 
+  - rm -rf /c/tools/miniconda3/envs/test-environment/conda-meta/history 
+  - rm -rf /c/tools/miniconda3/lib/python3.6/__pycache__ 
+  - rm -rf /c/tools/miniconda3/lib/python3.7/__pycache__
 
 cache :
   apt: true
   directories:
     - $HOME/download
     - $HOME/miniconda
+    - /c/tools/miniconda3
     - $HOME/AppData/Local/Temp/chocolatey
 
 addons:

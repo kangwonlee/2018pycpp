@@ -44,7 +44,7 @@ before_install:
       if [[ -f $HOME/download/miniconda.sh && $CONDA_PYTHON != "nightly" ]]; then
         echo "miniconda.sh for posix already available";
       else
-        echo "miniconda.sh for not available";
+        echo "miniconda.sh for not posix available";
         mkdir -p $HOME/download;
         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
           echo "downloading miniconda.sh for linux";

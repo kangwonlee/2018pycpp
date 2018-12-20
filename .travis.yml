@@ -99,7 +99,7 @@ install:
       echo "/c/tools/miniconda3/scripts exists";
     fi;
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
-      cat /C/ProgramData/chocolatey/logs/chocolatey.log;
+      grep --line-number miniconda /C/ProgramData/chocolatey/logs/chocolatey.log;
     fi;
   # To help debugging
   - echo $TRAVIS_OS_NAME

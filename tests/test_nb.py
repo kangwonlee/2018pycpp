@@ -7,7 +7,6 @@ import tempfile
 import pytest
 
 from . import get_cpp_from_ipynb as gcpp
-from . import check_links_in_ipynb as cli
 
 
 def check_kernel_spec():
@@ -87,8 +86,3 @@ def test_cpp_in_ipynb(filename):
     # separate .cpp code blocks from the ipynb file,
     # build, and run
     assert gcpp.get_cpp_src_from_ipynb(filename)
-
-
-@pytest.mark.parametrize("filename", ipynb_file_list)
-def test_urls_in_ipynb(filename):
-    cli.check_links_in_ipynb(filename)

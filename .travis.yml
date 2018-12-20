@@ -98,6 +98,9 @@ install:
   - if [[ -d /c/tools/miniconda3/scripts ]]; then
       echo "/c/tools/miniconda3/scripts exists";
     fi;
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
+      cat /C/ProgramData/chocolatey/logs/chocolatey.log;
+    fi;
   # To help debugging
   - echo $TRAVIS_OS_NAME
   - echo $CONDA_PYTHON

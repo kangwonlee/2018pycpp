@@ -77,9 +77,9 @@ install:
         echo "installing miniconda for windows";
         choco install miniconda3 --params="'/D:$HOME/miniconda'";
         ls $HOME/miniconda;
-        ls $HOME/miniconda/scripts;
+        ls $HOME/miniconda/Scripts;
       fi;
-      export PATH="$HOME/miniconda:$HOME/miniconda/scripts:$PATH";
+      export PATH="$HOME/miniconda:$HOME/miniconda/Scripts:$PATH";
       which conda;
     fi
   # To help debugging

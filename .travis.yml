@@ -73,42 +73,47 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90;
     fi
+  # Set conda path info
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      CONDA_PATH=$HOME/miniconda;
+      CONDA_SUB_PATH=$CONDA_PATH/bin;
+    elif [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      CONDA_PATH=/c/tools/miniconda3;
+      CONDA_SUB_PATH=$CONDA_PATH/Scripts;
+    fi
   # Install miniconda
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      if [[ -d $HOME/miniconda/bin && $CONDA_PYTHON != "nightly" ]]; then
+      if [[ -d $CONDA_SUB_PATH && $CONDA_PYTHON != "nightly" ]]; then
         echo "miniconda for posix already available";
       else
         echo "installing miniconda for posix";
         bash $HOME/download/miniconda.sh -b -u -p $HOME/miniconda;
       fi;
-      export PATH="$HOME/miniconda:$HOME/miniconda/bin:$PATH";
-      hash -r;
     elif  [[ "$TRAVIS_OS_NAME" == "windows" && $CONDA_PYTHON != "nightly" ]]; then
-      if [[ -e $HOME/miniconda/scripts/conda ]]; then
+      if [[ -e $CONDA_SUB_PATH/conda ]]; then
         echo "miniconda for Windows already installed";
       else
         echo "installing miniconda for windows";
         choco install miniconda3 --params="'/AddToPath:1'";
-        export PATH="/c/tools/miniconda3:/c/tools/miniconda3/Scripts:$PATH";
       fi;
-      export PATH="$HOME/miniconda:$HOME/miniconda/Scripts:$PATH";
-      which conda;
     elif [[ "$TRAVIS_OS_NAME" == "windows" && $CONDA_PYTHON == "nightly" ]]; then
       echo "installing miniconda for windows";
       choco install miniconda3 --params="'/AddToPath:1'";
-      export PATH="/c/tools/miniconda3:/c/tools/miniconda3/Scripts:$PATH";
     fi
+  - export PATH="$CONDA_PATH:$CONDA_SUB_PATH:$PATH";
+  # Forget all remembered locations
+  - hash -r
   # To help debugging
   - echo $TRAVIS_OS_NAME
   - echo $CONDA_PYTHON
+  - which conda;
   - conda info -a
-  # Forget all remembered locations
-  - hash -r
   # Conda setup options
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Create or update test environment of python module recipies
-  - if [[ ! -d $HOME/miniconda/envs/test-environment ]]; then
+  - if [[ ! -d $CONDA_PATH/envs/test-environment ]]; then
+      echo "creating test-environment";
       if [[ "$CONDA_PYTHON" == "3.6" ]]; then
         conda env create -n test-environment python=$CONDA_PYTHON -f ./tests/environment.3.6.yml;
       elif [[ "$CONDA_PYTHON" == "3.7" ]]; then
@@ -116,7 +121,8 @@ install:
       else
         conda env create -n test-environment python=$CONDA_PYTHON -f ./tests/environment.nightly.yml;
       fi;
-    elif [[ -d $HOME/miniconda/envs/test-environment ]]; then
+    elif [[ -d $CONDA_PATH/envs/test-environment ]]; then
+      echo "updating test-environment";
       if [[ "$CONDA_PYTHON" == "3.6" ]]; then
         conda env update -n test-environment python=$CONDA_PYTHON -f ./tests/environment.3.6.yml;
       elif [[ "$CONDA_PYTHON" == "3.7" ]]; then

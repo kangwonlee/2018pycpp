@@ -12,8 +12,8 @@ env:
   - CONDA_PYTHON=nightly
 
 os :
-  - linux
-  - osx
+  # - linux
+  # - osx
   - windows
 
 matrix:

@@ -61,7 +61,7 @@ before_install:
       else
         echo "getting miniconda.exe for windows";
         mkdir --parents $HOME/download;
-        wget https://repo.continuum.io/miniconda/Miniconda3-4.5.11-Windows-x86_64.exe -O $HOME/download/miniconda.exe;
+        curl -o $HOME/download/miniconda.exe "https://repo.continuum.io/miniconda/Miniconda3-4.5.11-Windows-x86_64.exe";
       fi;
     fi;
 

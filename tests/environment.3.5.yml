@@ -17,3 +17,4 @@ dependencies:
 - statsmodels=0.6.1
 - sympy=1.0=py35_0
 - pytest-xdist
+- requests

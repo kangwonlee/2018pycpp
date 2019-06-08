@@ -17,3 +17,4 @@ dependencies:
 - sympy=1.1.1
 - pytest-xdist=1.24.1
 - requests
+- cython

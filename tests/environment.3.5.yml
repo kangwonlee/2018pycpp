@@ -18,3 +18,4 @@ dependencies:
 - sympy=1.0=py35_0
 - pytest-xdist
 - requests
+- cython

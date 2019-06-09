@@ -111,7 +111,7 @@ if "__main__" == __name__:
         main(
             [os.path.abspath(
                 os.path.join(
-                    os.path.split(os.path.abspath(__file__))[0], os.pardir, '01', '01.ipynb'
+                    os.path.dirname(__file__), os.pardir, '01', '01.ipynb'
                 )
             )]
         )

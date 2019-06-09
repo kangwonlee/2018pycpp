@@ -2,12 +2,15 @@
 
 import os
 import subprocess
+import sys
 import tempfile
 
 import pytest
 
-from . import get_cpp_from_ipynb as gcpp
-from . import check_links_in_ipynb as cli
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__))))
+
+import check_links_in_ipynb as cli
+import get_cpp_from_ipynb as gcpp
 
 
 def check_kernel_spec():
@@ -50,11 +53,20 @@ def _exec_notebook(path):
 
 # Find absolute path of the parent folder
 # This file assumes the parent folder contains a number of .ipynb files
-base_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
+base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 # Prepare a list of ipynb files of the base_path
-ipynb_file_list = [filename for filename in os.listdir(base_path) if filename.endswith('.ipynb')]
+ipynb_file_list = []
+for name in os.listdir(base_path):
+    pardir_item_full_path = os.path.join(base_path, name)
+    assert os.path.exists(pardir_item_full_path)
+    if os.path.isdir(pardir_item_full_path):
+        for subfolder_name in os.listdir(pardir_item_full_path):
+            assert os.path.exists(os.path.join(pardir_item_full_path, subfolder_name))
+            if subfolder_name.endswith('.ipynb'):
+                    ipynb_file_list.append(os.path.join(pardir_item_full_path, subfolder_name))
 
+assert ipynb_file_list
 
 # https://docs.pytest.org/en/latest/example/parametrize.html
 @pytest.mark.parametrize("filename", ipynb_file_list)

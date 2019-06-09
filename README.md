@@ -33,5 +33,12 @@
 |     |  2  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |
 
 ## Builds
-![build status](https://travis-ci.com/kangwonlee/2018pycpp.svg?token=opJwY1txXMGQcDx6cEwY&branch=master)
+| subtree | status |
+|:----:|:----:|
+| 00 | ![00 master](https://travis-ci.org/kangwonlee/18pycpp-00.svg?branch=master) |
+| 01 | ![01 master](https://travis-ci.org/kangwonlee/18pycpp-01.svg?branch=master) |
+| 02 | ![02 master](https://travis-ci.org/kangwonlee/18pycpp-02.svg?branch=master) |
+| 03 | ![03 master](https://travis-ci.org/kangwonlee/18pycpp-03.svg?branch=master) |
+| 04 | ![04 master](https://travis-ci.org/kangwonlee/18pycpp-04.svg?branch=master) |
+| 05 | ![05 master](https://travis-ci.org/kangwonlee/18pycpp-05.svg?branch=master) |
 

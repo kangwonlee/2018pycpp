@@ -1,3 +1,5 @@
+![master](https://travis-ci.org/kangwonlee/2018pycpp.svg?branch=master)
+
 # Python and C/C++ Tutorial : A Comparative Approach
 
 ## Overview
@@ -31,14 +33,3 @@
 |  5  |  0  | [SciPy Stack](https://www.scipy.org/) : [`numpy`](http://www.numpy.org/), [`matplotlib`](https://matplotlib.org/gallery/index.html) |       |   ✓    |     |
 |     |  1  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/reference/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
 |     |  2  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |
-
-## Builds
-| subtree | status |
-|:----:|:----:|
-| 00 | ![00 master](https://travis-ci.org/kangwonlee/18pycpp-00.svg?branch=master) |
-| 01 | ![01 master](https://travis-ci.org/kangwonlee/18pycpp-01.svg?branch=master) |
-| 02 | ![02 master](https://travis-ci.org/kangwonlee/18pycpp-02.svg?branch=master) |
-| 03 | ![03 master](https://travis-ci.org/kangwonlee/18pycpp-03.svg?branch=master) |
-| 04 | ![04 master](https://travis-ci.org/kangwonlee/18pycpp-04.svg?branch=master) |
-| 05 | ![05 master](https://travis-ci.org/kangwonlee/18pycpp-05.svg?branch=master) |
-

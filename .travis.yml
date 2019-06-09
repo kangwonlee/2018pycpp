@@ -70,7 +70,7 @@ install:
     fi;
   # Add miniconda path
   - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$MINICONDA_LIB_BIN_PATH:$PATH";
-  - source $MINICONDA_PATH/etc/profile.d/conda.sh;  
+  - source $MINICONDA_PATH/etc/profile.d/conda.sh;
   # Forget all remembered locations
   - hash -r
   # Conda setup options

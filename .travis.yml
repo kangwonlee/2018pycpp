@@ -8,14 +8,27 @@
 language : shell
 
 env:
-  - CONDA_PYTHON=3.6
-  - CONDA_PYTHON=3.7
-  - CONDA_PYTHON=3.7.1
-  - CONDA_PYTHON=nightly
+  global:
+    - MINICONDA_DOWNLOAD=$HOME/download
+    - MINICONDA_PATH=$HOME/miniconda
+  matrix:
+    - CONDA_PYTHON=3.6
+    - CONDA_PYTHON=3.7
+    - CONDA_PYTHON=3.7.1
+    - CONDA_PYTHON=nightly
 
 os :
   - linux
   - osx
+
+before_cache:
+  - rm -rf $MINICONDA_PATH/locks $MINICONDA_PATH/pkgs $MINICONDA_PATH/var $MINICONDA_PATH/conda-meta/history $MINICONDA_PATH/envs/test-environment/conda-meta/history $MINICONDA_PATH/lib/python3.6/__pycache__ $MINICONDA_PATH/lib/python3.7/__pycache__;
+  - touch $MINICONDA_PATH/conda-meta/history;
+
+cache :
+  directories:
+    - $MINICONDA_DOWNLOAD
+    - $MINICONDA_PATH
 
 before_install:
   # When C++14 support becomes more clear, consider revision
@@ -24,7 +37,6 @@ before_install:
       sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
       sudo apt-get update -qq;
     fi;
-  - MINICONDA_PATH=$HOME/miniconda;
   - MINICONDA_SUB_PATH=$MINICONDA_PATH/bin;
   - MINICONDA_LIB_BIN_PATH=$MINICONDA_PATH/Library/bin;
 
@@ -37,16 +49,29 @@ install:
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90;
     fi
   # Obtain miniconda installer for the OS
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-    elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
-    fi
-  # Install miniconda
-  - bash miniconda.sh -b -p $MINICONDA_PATH;
+  - if [[ -f $MINICONDA_DOWNLOAD/miniconda.sh && $CONDA_PYTHON != "nightly" ]]; then
+      echo "miniconda.sh for posix already available";
+    else
+      mkdir -p $MINICONDA_DOWNLOAD/;
+      if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+        echo "downloading miniconda.sh for linux";
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $MINICONDA_DOWNLOAD/miniconda.sh;
+      elif  [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+        echo "downloading miniconda.sh for osx";
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O $MINICONDA_DOWNLOAD/miniconda.sh;
+      fi;
+    fi;
+  # Install miniconda if necessary
+  - if [[ -d $MINICONDA_SUB_PATH && $CONDA_PYTHON != "nightly" ]]; then
+      echo "miniconda for posix already available";
+    else
+      echo "installing miniconda for posix";
+      bash $MINICONDA_DOWNLOAD/miniconda.sh -b -u -p $MINICONDA_PATH;
+    fi;
   # Add miniconda path
   - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$MINICONDA_LIB_BIN_PATH:$PATH";
-  # Forget all rememberd locations
+  - source $MINICONDA_PATH/etc/profile.d/conda.sh;
+  # Forget all remembered locations
   - hash -r
   # Conda setup options
   - conda config --set always_yes yes --set changeps1 no
@@ -54,6 +79,7 @@ install:
   # To help debugging
   - echo $TRAVIS_OS_NAME
   - echo $TRAVIS_PYTHON_VERSION
+  - echo $CONDA_PYTHON
   # Useful for debugging any issues with conda
   - conda info -a
   # Apply python module recipies
@@ -70,7 +96,3 @@ install:
 # https://lord.io/blog/2014/travis-multiple-subdirs/
 script:
   - pytest -n auto tests/
-
-notifications:
-    email:
-        - kangwon.lee.edu@gmail.com

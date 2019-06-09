@@ -2,12 +2,15 @@
 
 import os
 import subprocess
+import sys
 import tempfile
 
 import pytest
 
-from . import get_cpp_from_ipynb as gcpp
-from . import check_links_in_ipynb as cli
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__))))
+
+import check_links_in_ipynb as cli
+import get_cpp_from_ipynb as gcpp
 
 
 def check_kernel_spec():
@@ -48,12 +51,40 @@ def _exec_notebook(path):
         # and raise if error
         subprocess.check_call(args)
 
-# Find absolute path of the parent folder
-# This file assumes the parent folder contains a number of .ipynb files
-base_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], os.pardir))
 
-# Prepare a list of ipynb files of the base_path
-ipynb_file_list = [filename for filename in os.listdir(base_path) if filename.endswith('.ipynb')]
+def get_ipynb_file_list(base_path):
+        # Prepare a list of ipynb files of the base_path
+        ipynb_file_list = []
+        for name in os.listdir(base_path):
+                pardir_item_full_path = os.path.join(base_path, name)
+                assert isinstance(pardir_item_full_path, str)
+                assert os.path.exists(pardir_item_full_path)
+                if os.path.isdir(pardir_item_full_path):
+                        for subfolder_name in os.listdir(pardir_item_full_path):
+                                subfolder_item_name = os.path.join(pardir_item_full_path, subfolder_name)
+                                assert isinstance(subfolder_item_name, str)
+                                assert os.path.exists(subfolder_item_name)
+                                if subfolder_name.endswith('.ipynb') and os.path.isfile(subfolder_item_name):
+                                        ipynb_file_list.append(os.path.join(pardir_item_full_path, subfolder_name))
+
+        assert ipynb_file_list
+
+        return ipynb_file_list
+
+
+def get_base_path():
+        # Find absolute path of the parent folder
+        # This file assumes the parent folder contains a number of .ipynb files
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+
+        assert os.path.exists(base_path)
+        assert os.path.isdir(base_path)
+
+        return base_path
+
+
+base_path = get_base_path()
+ipynb_file_list = get_ipynb_file_list(base_path)
 
 
 # https://docs.pytest.org/en/latest/example/parametrize.html

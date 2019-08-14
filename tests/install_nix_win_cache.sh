@@ -39,10 +39,10 @@ conda info -a
 # As necessary, apply python module recipies
 if [[ ! -d $MINICONDA_PATH/envs/test-environment ]]; then
     echo "create test-environment";
-    conda env create -n test-environment python=$CONDA_PYTHON -f ./tests/environment.${CONDA_PYTHON}.yml;
+    conda env create -n test-environment -f ./tests/environment.${CONDA_PYTHON}.yml;
 else
     echo "update test-environment";
-    conda env update -n test-environment python=$CONDA_PYTHON -f ./tests/environment.${CONDA_PYTHON}.yml;
+    conda env update -n test-environment -f ./tests/environment.${CONDA_PYTHON}.yml;
 fi;
 conda activate test-environment
 conda list

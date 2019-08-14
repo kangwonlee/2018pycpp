@@ -46,7 +46,7 @@ install:
       sudo apt-get install -qq g++-6;
       sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90;
     fi
-  - ./tests/install_nix_win_cache.sh
+  - . ./tests/install_nix_win_cache.sh
 
 # https://lord.io/blog/2014/travis-multiple-subdirs/
 script:

@@ -5,7 +5,7 @@ channels:
 - defaults
 
 dependencies:
-- python=3.7.3
+- python>=3.7.3
 # Anaconda 2019.07 python 3.7 Win64
 - cython>=0.29.12
 - jupyter>=1.0.0

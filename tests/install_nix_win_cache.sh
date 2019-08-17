@@ -46,3 +46,9 @@ else
 fi;
 conda activate test-environment
 conda list
+
+# python 3.7.4 linux h265db76_0 might have cython filename issue
+
+if [ conda list | grep ^python.*3.7.4.*h265db76_0 ]; then
+    conda install python=3.7.4;
+fi;

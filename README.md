@@ -1,4 +1,4 @@
-![master](https://travis-ci.org/kangwonlee/2018pycpp.svg?branch=master)
+![master](https://github.com/kangwonlee/2018pycpp/workflows/CI/badge.svg)
 
 # Python and C/C++ Tutorial : A Comparative Approach
 

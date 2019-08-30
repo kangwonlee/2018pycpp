@@ -1,3 +1,6 @@
+# MarkDown table generator
+# 
+# References
 # https://stackoverflow.com/questions/35160256/how-do-i-output-lists-as-a-table-in-jupyter-notebook
 # http://nbviewer.jupyter.org/github/ipython/ipython/blob/4.0.x/examples/IPython%20Kernel/Rich%20Output.ipynb
 # https://meta.stackexchange.com/questions/5916/allow-marking-text-as-fixed-width-font
@@ -76,4 +79,3 @@ def get_md_table(contents_dict):
 
 if "__main__" == __name__:
     main()
-

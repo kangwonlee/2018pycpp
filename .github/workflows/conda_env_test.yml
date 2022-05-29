@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-18.04]
-        anaconda: ["2019.10", nightly]
+        anaconda: ["2019.10", 2020.07, 2021.04, nightly]
 
     steps:
     - uses: actions/checkout@v1

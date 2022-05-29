@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  push:
   schedule:
-    - cron: '09 16 29 * *'
+    - cron: '20 16 29 * *'
+  push:
 
 jobs:
   build:

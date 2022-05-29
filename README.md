@@ -1,4 +1,4 @@
-![master](https://github.com/kangwonlee/2018pycpp/workflows/CI/badge.svg)
+[![CI](https://github.com/kangwonlee/2018pycpp/actions/workflows/conda_env_test.yml/badge.svg)](https://github.com/kangwonlee/2018pycpp/actions/workflows/conda_env_test.yml)
 
 # Python and C/C++ Tutorial : A Comparative Approach
 

@@ -8,8 +8,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
-        anaconda: [2019.07, "2019.10", nightly]
+        os: [ubuntu-latest, ubuntu-18.04]
+        anaconda: ["2019.10", nightly]
 
     steps:
     - uses: actions/checkout@v1

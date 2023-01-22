@@ -45,16 +45,6 @@ def links_in_readme_md(readme_md: str) -> Tuple[Tuple[str]]:
 
 
 @pytest.fixture(scope="session")
-def ipynb_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]]) -> Tuple[Tuple[str]]:
-    return tuple(
-        filter(
-            lambda x: x[1].endswith(".ipynb"),
-            links_in_readme_md,
-        )
-    )
-
-
-@pytest.fixture(scope="session")
 def server() -> str:
     return os.environ["GITHUB_SERVER_URL"]
 
@@ -76,21 +66,7 @@ def get_full_url(path_in_repo:str, repository_name:str, branch_name:str) -> str:
 
 
 @pytest.fixture(scope="session")
-def ipynb_full_links_in_readme_md(ipynb_links_in_readme_md: Tuple[Tuple[str]], repository, branch) -> Tuple[Tuple[str]]:
-
-    result = []
-
-    for info in ipynb_links_in_readme_md:
-        assert 2 == len(info)
-        path = info[1]
-        full_link = get_full_url(path, repository, branch)
-        result.append(full_link)
-
-    return tuple(result)
-
-
-@pytest.fixture(scope="session")
-def full_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]], repository, branch) -> Tuple[Tuple[str]]:
+def full_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]], repository, branch) -> Tuple[str]:
 
     result = []
 
@@ -123,29 +99,26 @@ def test_test_folder(test_folder, test_file_path: pathlib.Path):
     assert (test_folder / test_file_path.name) == test_file_path
 
 
-def test_number_of_links_in_readme_md(links_in_readme_md: Tuple[str]):
+def test_number_of_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]]):
+    assert isinstance(links_in_readme_md, (tuple, list))
+    assert isinstance(links_in_readme_md[0], (tuple, list))
+
+    assert isinstance(links_in_readme_md[0][0], str)
+    assert isinstance(links_in_readme_md[0][1], str)
+
     assert 5 < len(links_in_readme_md)
-
-
-def test_number_of_links_in_ipynb_readme_md(ipynb_links_in_readme_md: Tuple[str]):
-    assert 5 < len(ipynb_links_in_readme_md)
-    assert all(map(lambda x: x[1].endswith(".ipynb"), ipynb_links_in_readme_md))
-
-
-def test_ipynb_full_links_in_readme_md(ipynb_full_links_in_readme_md: Tuple[str]):
-    assert 5 < len(ipynb_full_links_in_readme_md)
-    for url in ipynb_full_links_in_readme_md:
-        r = requests.get(url)
-        assert r.ok, url
 
 
 def test_fixture_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
     assert isinstance(full_links_in_readme_md, (tuple, list, set))
+    assert isinstance(full_links_in_readme_md[0], str)
+
     assert 5 < len(full_links_in_readme_md)
 
     assert ("https://cython.org" in full_links_in_readme_md), (
         full_links_in_readme_md
     )
+
 
 def test_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
     for url in full_links_in_readme_md:

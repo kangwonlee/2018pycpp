@@ -89,6 +89,27 @@ def ipynb_full_links_in_readme_md(ipynb_links_in_readme_md: Tuple[Tuple[str]], r
     return tuple(result)
 
 
+@pytest.fixture(scope="session")
+def full_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]], repository, branch) -> Tuple[Tuple[str]]:
+
+    result = []
+
+    for info in links_in_readme_md:
+        assert 2 == len(info)
+        url = info[1]
+
+        parsed = up.urlparse(url)
+
+        if parsed.scheme and parsed.netloc:
+            full_link = url
+        else:
+            full_link = get_full_url(url, repository, branch)
+
+        result.append(full_link)
+
+    return tuple(result)
+
+
 def test_test_file_path(test_file_path: pathlib.Path):
     assert test_file_path.exists()
     assert test_file_path.is_file()
@@ -114,6 +135,24 @@ def test_number_of_links_in_ipynb_readme_md(ipynb_links_in_readme_md: Tuple[str]
 def test_ipynb_full_links_in_readme_md(ipynb_full_links_in_readme_md: Tuple[str]):
     assert 5 < len(ipynb_full_links_in_readme_md)
     for url in ipynb_full_links_in_readme_md:
+        r = requests.get(url)
+        assert r.ok, url
+
+
+def test_fixture_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
+    assert isinstance(full_links_in_readme_md, (tuple, list, set))
+    assert 5 < len(full_links_in_readme_md)
+
+    assert ("https://cython.org" in full_links_in_readme_md), (
+        full_links_in_readme_md
+    )
+
+def test_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
+    for url in full_links_in_readme_md:
+
+        assert isinstance(url, str)
+        assert url.startswith("http")
+
         r = requests.get(url)
         assert r.ok, url
 

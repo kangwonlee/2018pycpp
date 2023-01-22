@@ -1,7 +1,12 @@
 """
 Test that all links in README.md are valid.
 """
+
 import pathlib
+import re
+import urllib.parse as up
+
+from typing import Tuple
 
 
 import pytest
@@ -34,6 +39,11 @@ def readme_md(readme_md_path: pathlib.Path) -> str:
     return txt
 
 
+@pytest.fixture(scope="session")
+def links_in_readme_md(readme_md: str) -> Tuple[Tuple[str]]:
+    return tuple(re.findall(r"\[(.*?)\]\((.*?)\)", readme_md))
+
+
 def test_test_file_path(test_file_path: pathlib.Path):
     assert test_file_path.exists()
     assert test_file_path.is_file()
@@ -45,6 +55,10 @@ def test_test_folder(test_folder, test_file_path: pathlib.Path):
 
     assert (test_folder / test_file_path.name).exists()
     assert (test_folder / test_file_path.name) == test_file_path
+
+
+def test_number_of_links_in_readme_md(links_in_readme_md: Tuple[str]):
+    assert 5 < len(links_in_readme_md)
 
 
 if "__main__" == __name__:

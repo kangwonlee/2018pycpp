@@ -24,9 +24,9 @@
 |  [2](20.control-flow/)  |  [0](20.control-flow/00.if.ipynb)  | *Control*ling flow : conditional<br>`if`-`else if`-`else`<br>`switch`-`case` |       |   ✓    |  ✓  |
 |     |  [1](20.control-flow/10.for-while.ipynb)  | *Control*ling flow : repetition<br>`for`<br>`while`<br>`do while` |       |   ✓    |  ✓  |
 |     |  [2](20.control-flow/20.functions.ipynb)  | Wrapping into Functions and calling by value      |       |   ✓    |  ✓  |
-|  [3](03/)  |  [0](03/00.ipynb)  | Interpreting Pointers and *Call*ing *by Reference* |       |        |  ✓  |
-|     |  [1](03/01.ipynb)  | Managing memory with `malloc` and `free` |       |        |  ✓  |
-|     |  [2](03/02.ipynb)  | Opening the hood of python : `list` of `list`s and references |       |   ✓    |     |
+|  [3](30.pointers-and-memory-management/)  |  [0](30.pointers-and-memory-management/00.pointers.ipynb)  | Interpreting Pointers and *Call*ing *by Reference* |       |        |  ✓  |
+|     |  [1](30.pointers-and-memory-management/10.calloc-free.ipynb)  | Managing memory with `malloc` and `free` |       |        |  ✓  |
+|     |  [2](30.pointers-and-memory-management/20.python.list-reference.ipynb)  | Opening the hood of python : `list` of `list`s and references |       |   ✓    |     |
 |  [4](04/)  |  [0](04/00.ipynb)  | Modularizing and `namespace`s |       |   ✓    |  ✓  |
 |     |  [1](04/01.ipynb)  | Instantiating and inheriting `class`es |       |   ✓    |  ✓  |
 |     |  [2](04/02.ipynb)  | Controlling access to Attributes |       |   ✓    |  ✓  |

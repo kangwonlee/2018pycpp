@@ -15,9 +15,9 @@
 
 | Ch  | Sec | Subject                           | Linux | Python | C++ |
 |:---:|:---:|:----------------------------------:|:-----:|:------:|:---:|
-|  [0](00/)  |  [0](00/00.ipynb)  | Overview<br>Introducing Linux bash |   ✓   |        |     |
-|     |  [1](00/01.ipynb)  | Introducing Python<br>Installing [Anaconda](https://www.anaconda.com/download/) <br>`print('Hello World!')`<br>`python hello.py` |       |   ✓    |     |
-|     |  [2](00/02.ipynb)  | Introducing C/C++<br>Installing `g++` and `make`<br>`printf("Hello World!\n");` / `cout << "Hello World\n";`<br>`g++ -Wall hello.cpp -o hello && ./hello` |       |        |  ✓  |
+|  [0](00.python-c-cpp/)  |  [0](00.python-c-cpp/00.python.ipynb)  | Overview<br>Introducing Linux bash |   ✓   |        |     |
+|     |  [1](00.python-c-cpp/10.c-cpp.ipynb)  | Introducing Python<br>Installing [Anaconda](https://www.anaconda.com/download/) <br>`print('Hello World!')`<br>`python hello.py` |       |   ✓    |     |
+|     |  [2](00.python-c-cpp/20.bash.ipynb)  | Introducing C/C++<br>Installing `g++` and `make`<br>`printf("Hello World!\n");` / `cout << "Hello World\n";`<br>`g++ -Wall hello.cpp -o hello && ./hello` |       |        |  ✓  |
 |  [1](01/)  |  [0](01/00.ipynb)  | Introducing [git](https://git-scm.com/)<br>`git clone`, `git config --list`, `git status`, `git log`, `git add -p`, `git commit -m '<message>'`, `git push -u <remote> <branch>`<br>[github](https://www.github.com), and [travis-ci](https://www.travis-ci.org) |   ✓   |        |     |
 |     |  [1](01/01.ipynb)  | Representing Data types <br> integers and 2's complements <br> floating point and complex numbers <br> characters and strings<br>`list` and `tuple` vs array<br>`dict` vs `struct` and `union` |       |   ✓    |  ✓  |
 |     |  [2](01/02.ipynb)  | Operating<br>`+` `-` `*` `/`, `%`, {`++`, `--`}, (`//`, `**`)<br>`+=` and `*=` vs assembly<br>`<<`, `>>`, `\|`, `&` |       |   ✓    |  ✓  |

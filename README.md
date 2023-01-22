@@ -27,9 +27,11 @@
 |  [3](30.pointers-and-memory-management/)  |  [0](30.pointers-and-memory-management/00.pointers.ipynb)  | Interpreting Pointers and *Call*ing *by Reference* |       |        |  ✓  |
 |     |  [1](30.pointers-and-memory-management/10.calloc-free.ipynb)  | Managing memory with `malloc` and `free` |       |        |  ✓  |
 |     |  [2](30.pointers-and-memory-management/20.python.list-reference.ipynb)  | Opening the hood of python : `list` of `list`s and references |       |   ✓    |     |
-|  [4](04/)  |  [0](04/00.ipynb)  | Modularizing and `namespace`s |       |   ✓    |  ✓  |
-|     |  [1](04/01.ipynb)  | Instantiating and inheriting `class`es |       |   ✓    |  ✓  |
-|     |  [2](04/02.ipynb)  | Controlling access to Attributes |       |   ✓    |  ✓  |
+|  [4](40.object-oriented-programming/)  |  [0](40.object-oriented-programming/00.module-namespace.ipynb)  | Modularizing and `namespace`s |       |   ✓    |  ✓  |
+|     |  [1](40.object-oriented-programming/10.class.ipynb)  | Instantiating and inheriting `class`es |       |   ✓    |  ✓  |
+|     |  [2](40.object-oriented-programming/20.private-protected-public.ipynb)  | Controlling access to Attributes |       |   ✓    |  ✓  |
+|     |  [3](40.object-oriented-programming/30.state-space-in-class.ipynb)  | State space representation in class |       |   ✓    |     |
+|     |  [4](40.object-oriented-programming/40.dataclasses.dataclass.ipynb)  | Dataclass |       |   ✓    |     |
 |  [5](05/)  |  [0](05/00.ipynb)  | [SciPy Stack](https://www.scipy.org/) : [`numpy`](http://www.numpy.org/), [`matplotlib`](https://matplotlib.org/gallery/index.html) |       |   ✓    |     |
 |     |  [1](05/01.ipynb)  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/reference/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
 |     |  [2](05/02.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |

@@ -109,6 +109,7 @@ def test_number_of_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]]):
     assert 5 < len(links_in_readme_md)
 
 
+@pytest.mark.skipif("GITHUB_SERVER_URL" not in os.environ, reason="Not in GitHub Actions")
 def test_fixture_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
     assert isinstance(full_links_in_readme_md, (tuple, list, set))
     assert isinstance(full_links_in_readme_md[0], str)
@@ -120,6 +121,7 @@ def test_fixture_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
     )
 
 
+@pytest.mark.skipif("GITHUB_SERVER_URL" not in os.environ, reason="Not in GitHub Actions")
 def test_full_links_in_readme_md(full_links_in_readme_md: Tuple[str]):
     for url in full_links_in_readme_md:
 

@@ -102,4 +102,4 @@ def test_ipynb_full_links_in_readme_md(ipynb_full_links_in_readme_md: Tuple[str]
 
 
 if "__main__" == __name__:
-    pytest.main()
+    pytest.main([__file__])

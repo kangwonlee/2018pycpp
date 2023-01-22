@@ -32,6 +32,6 @@
 |     |  [2](40.object-oriented-programming/20.private-protected-public.ipynb)  | Controlling access to Attributes |       |   ✓    |  ✓  |
 |     |  [3](40.object-oriented-programming/30.state-space-in-class.ipynb)  | State space representation in class |       |   ✓    |     |
 |     |  [4](40.object-oriented-programming/40.dataclasses.dataclass.ipynb)  | Dataclass |       |   ✓    |     |
-|  [5](05/)  |  [0](05/00.ipynb)  | [SciPy Stack](https://www.scipy.org/) : [`numpy`](http://www.numpy.org/), [`matplotlib`](https://matplotlib.org/gallery/index.html) |       |   ✓    |     |
-|     |  [1](05/01.ipynb)  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/reference/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
-|     |  [2](05/02.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |
+|  [5](50.under-the-hood/)  |  [0](50.under-the-hood/00.gdb.ipynb)  | [SciPy Stack](https://www.scipy.org/) : [`numpy`](http://www.numpy.org/), [`matplotlib`](https://matplotlib.org/gallery/index.html) |       |   ✓    |     |
+|     |  [1](50.under-the-hood/10.cython.ipynb)  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/reference/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
+|     |  [2](50.under-the-hood/20.assembly.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |

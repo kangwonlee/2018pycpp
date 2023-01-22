@@ -69,19 +69,21 @@ def branch() -> str:
     return os.environ["GITHUB_REF"]
 
 
+def get_full_url(path_in_repo:str, repository_name:str, branch_name:str) -> str:
+    return up.urlunparse((
+        "https", "github.com", f"/{repository_name}/tree/{branch_name}/{path_in_repo}", None, None, None,
+    ))
+
+
 @pytest.fixture(scope="session")
 def ipynb_full_links_in_readme_md(ipynb_links_in_readme_md: Tuple[Tuple[str]], repository, branch) -> Tuple[Tuple[str]]:
-    def get_full_url(x: Tuple[str]) -> str:
-        return up.urlunparse((
-            "https", "github.com", f"/{repository}/tree/{branch}/{x[1]}", None, None, None,
-        ))
 
     result = []
 
     for info in ipynb_links_in_readme_md:
         assert 2 == len(info)
         path = info[1]
-        full_link = get_full_url(info)
+        full_link = get_full_url(path, repository, branch)
         result.append(full_link)
 
     return tuple(result)

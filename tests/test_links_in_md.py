@@ -44,6 +44,16 @@ def links_in_readme_md(readme_md: str) -> Tuple[Tuple[str]]:
     return tuple(re.findall(r"\[(.*?)\]\((.*?)\)", readme_md))
 
 
+@pytest.fixture(scope="session")
+def ipynb_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]]) -> Tuple[Tuple[str]]:
+    return tuple(
+        filter(
+            lambda x: x[1].endswith(".ipynb"),
+            links_in_readme_md,
+        )
+    )
+
+
 def test_test_file_path(test_file_path: pathlib.Path):
     assert test_file_path.exists()
     assert test_file_path.is_file()
@@ -59,6 +69,11 @@ def test_test_folder(test_folder, test_file_path: pathlib.Path):
 
 def test_number_of_links_in_readme_md(links_in_readme_md: Tuple[str]):
     assert 5 < len(links_in_readme_md)
+
+
+def test_number_of_links_in_ipynb_readme_md(ipynb_links_in_readme_md: Tuple[str]):
+    assert 5 < len(ipynb_links_in_readme_md)
+    assert all(map(lambda x: x[1].endswith(".ipynb"), ipynb_links_in_readme_md))
 
 
 if "__main__" == __name__:

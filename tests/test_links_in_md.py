@@ -1,7 +1,7 @@
 """
 Test that all links in README.md are valid.
 """
-
+import os
 import pathlib
 import re
 import urllib.parse as up
@@ -55,10 +55,25 @@ def ipynb_links_in_readme_md(links_in_readme_md: Tuple[Tuple[str]]) -> Tuple[Tup
 
 
 @pytest.fixture(scope="session")
-def ipynb_full_links_in_readme_md(ipynb_links_in_readme_md: Tuple[Tuple[str]]) -> Tuple[Tuple[str]]:
+def server() -> str:
+    return os.environ["GITHUB_SERVER_URL"]
+
+
+@pytest.fixture(scope="session")
+def repository() -> str:
+    return os.environ["GITHUB_REPOSITORY"]
+
+
+@pytest.fixture(scope="session")
+def branch() -> str:
+    return os.environ["GITHUB_REF"]
+
+
+@pytest.fixture(scope="session")
+def ipynb_full_links_in_readme_md(ipynb_links_in_readme_md: Tuple[Tuple[str]], repository, branch) -> Tuple[Tuple[str]]:
     def get_full_url(x: Tuple[str]) -> str:
         return up.urlunparse((
-            "https", "github.com", f"/kangwonlee/2018pycpp/tree/main/{x[1]}", None, None, None,
+            "https", "github.com", f"/{repository}/tree/{branch}/{x[1]}", None, None, None,
         ))
 
     result = []

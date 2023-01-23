@@ -20,4 +20,6 @@ jobs:
     - name: pytest
       env:
         TEST_IPYNB_IGNORE_FOLDER: tutorial
+        GITHUB_SERVER_URL: github.server_url
+        GITHUB_REPOSITORY: github.repository
       run: bash ./.github/workflows/run_test.sh

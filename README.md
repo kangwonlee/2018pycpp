@@ -33,5 +33,5 @@
 |     |  [30](40.object-oriented-programming/30.state-space-in-class.ipynb)  | State space representation in class |       |   ✓    |     |
 |     |  [40](40.object-oriented-programming/40.dataclasses.dataclass.ipynb)  | Dataclass |       |   ✓    |     |
 |  [50](50.under-the-hood/)  |  [00](50.under-the-hood/00.gdb.ipynb)  | [SciPy Stack](https://www.scipy.org/) : [`numpy`](http://www.numpy.org/), [`matplotlib`](https://matplotlib.org/gallery/index.html) |       |   ✓    |     |
-|     |  [10](50.under-the-hood/10.cython.ipynb)  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/reference/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
+|     |  [10](50.under-the-hood/10.cython.ipynb)  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
 |     |  [20](50.under-the-hood/20.assembly.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |

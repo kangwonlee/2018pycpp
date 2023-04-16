@@ -34,4 +34,7 @@
 |     |  [40](40.object-oriented-programming/40.dataclasses.dataclass.ipynb)  | Dataclass |       |   ✓    |     |
 |  [50](50.under-the-hood/)  |  [00](50.under-the-hood/00.gdb.ipynb)  | `gdb` debugger |       |        |  ✓   |
 |     |  [10](50.under-the-hood/10.cython.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |
-|     |  [20](50.under-the-hood/20.assembly.ipynb)  | Assembly |       |        |  ✓   |
+|     |  [20](50.under-the-hood/20.assembly.md)  | Programming in lower level |       |        |  ✓   |
+|     |  [22](50.under-the-hood/22.working_with_bits_operators.ipynb)  | Working with bits : operators |       |        |  ✓   |
+|     |  [24](50.under-the-hood/24.working_with_bits_operators_results.md)  | Results from "Working with bits" |       |        |  ✓   |
+|     |  [28](50.under-the-hood/28.working_with_bits_struct_union.ipynb)  | Working with bits : `struct` and `union` |       |        |  ✓   |

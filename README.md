@@ -32,6 +32,9 @@
 |     |  [20](40.object-oriented-programming/20.private-protected-public.ipynb)  | Controlling access to Attributes |       |   ✓    |  ✓  |
 |     |  [30](40.object-oriented-programming/30.state-space-in-class.ipynb)  | State space representation in class |       |   ✓    |     |
 |     |  [40](40.object-oriented-programming/40.dataclasses.dataclass.ipynb)  | Dataclass |       |   ✓    |     |
-|  [50](50.under-the-hood/)  |  [00](50.under-the-hood/00.gdb.ipynb)  | [SciPy Stack](https://www.scipy.org/) : [`numpy`](http://www.numpy.org/), [`matplotlib`](https://matplotlib.org/gallery/index.html) |       |   ✓    |     |
-|     |  [10](50.under-the-hood/10.cython.ipynb)  | SciPy Stack : [`scipy`](https://docs.scipy.org/doc/scipy/tutorial/io.html), [`sympy`](https://docs.sympy.org/latest/modules/printing.html#module-sympy.printing.ccode) |       |   ✓    |     |
-|     |  [20](50.under-the-hood/20.assembly.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |
+|  [50](50.under-the-hood/)  |  [00](50.under-the-hood/00.gdb.ipynb)  | `gdb` debugger |       |        |  ✓   |
+|     |  [10](50.under-the-hood/10.cython.ipynb)  | Bridging between Python & C/C++ : [`cython`](https://cython.org) |       |   ✓    |  ✓  |
+|     |  [20](50.under-the-hood/20.assembly.md)  | Programming in lower level |       |        |  ✓   |
+|     |  [22](50.under-the-hood/22.working_with_bits_operators.ipynb)  | Working with bits : operators |       |        |  ✓   |
+|     |  [24](50.under-the-hood/24.working_with_bits_operators_results.md)  | Results from "Working with bits" |       |        |  ✓   |
+|     |  [28](50.under-the-hood/28.working_with_bits_struct_union.ipynb)  | Working with bits : `struct` and `union` |       |        |  ✓   |

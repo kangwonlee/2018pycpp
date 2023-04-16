@@ -1,8 +1,11 @@
-import os
+import functools
+import itertools
+import multiprocessing as mp
+import pathlib
 import subprocess
 
 import nbformat
-
+from nbformat.v4.nbbase import new_code_cell
 
 class FileProcessor(object):
     """
@@ -10,7 +13,7 @@ class FileProcessor(object):
     """
 
     def __init__(self, nb_filename, cell_processor=None):
-        self.nb_filename = nb_filename
+        self.nb_filename = pathlib.Path(nb_filename)
         self.nb_node = None
         if cell_processor is None:
             cell_processor = CellProcessorBase()
@@ -18,14 +21,12 @@ class FileProcessor(object):
 
     def read_file(self, nb_filename=None):
         nb_filename = self.use_default_filename_if_missing(nb_filename)
-        assert os.path.exists(nb_filename)
+        assert nb_filename.exists(), nb_filename
 
-        with open(nb_filename, 'rb') as nb_file:
-            txt = nb_file.read()
-
-        nb_node = nbformat.reads(txt.decode(), nbformat.NO_CONVERT)
-
-        return nb_node
+        return nbformat.reads(
+            nb_filename.read_text(),
+            nbformat.NO_CONVERT
+        )
 
     def use_default_filename_if_missing(self, nb_filename):
         if nb_filename is None:
@@ -154,3 +155,90 @@ class CellProcessorBase(object):
     def process_cell(self):
         # virtual method
         raise NotImplementedError()
+
+
+@functools.lru_cache(maxsize=1)
+def get_upper_folder() -> pathlib.Path:
+    proj_folder = pathlib.Path(__file__).parent.parent.absolute()
+    assert proj_folder.is_dir(), proj_folder
+    assert (proj_folder / ".gitignore").exists(), proj_folder
+    return proj_folder
+
+
+def one_level_ipynb(proj_path:pathlib.Path=get_upper_folder()) -> pathlib.Path:
+    """
+    generator of full paths to ipynb files one level under the given folder
+    """
+    proj_path = pathlib.Path(proj_path).absolute()
+    assert proj_path.is_dir(), proj_path
+
+    for item in proj_path.iterdir():
+        if item.is_dir() and (not item.name.startswith('.')):
+            chapter_dir = item.absolute()
+            for chapter_item in chapter_dir.iterdir():
+                if chapter_item.is_file() and ("ipynb" == chapter_item.suffix.lower()):
+                    yield chapter_item
+
+
+def read_nodes_from_ipynb(full_path_ipynb:str) -> nbformat.NotebookNode:
+    full_path_ipynb = pathlib.Path(full_path_ipynb).absolute()
+    assert full_path_ipynb.exists(), full_path_ipynb
+
+    with full_path_ipynb.open('rb') as nb_file:
+        nb_node = nbformat.read(nb_file, nbformat.NO_CONVERT)
+
+    return nb_node
+
+
+def write_nodes_to_ipynb(full_path_ipynb:str, nb_node:nbformat.NotebookNode):
+    nbformat.write(nb_node, full_path_ipynb)
+
+
+def insert_code_cell(nb_node:nbformat.NotebookNode, index:int, code:str) -> nbformat.NotebookNode:
+    new_cell = nbformat.v4.new_code_cell(source=code)
+
+    if "id" in new_cell:
+        del new_cell["id"]
+
+    nb_node["cells"].insert(index, new_cell)
+
+    return nb_node
+
+
+def insert_code_cell_to_ipynb(index:int, code:str, full_path_ipynb:str, b_allow_duplicate:bool=False):
+    nb_node = read_nodes_from_ipynb(full_path_ipynb)
+    if b_allow_duplicate or (nb_node["cells"][index]["source"] != code):
+        insert_code_cell(nb_node, index, code)
+        write_nodes_to_ipynb(full_path_ipynb, nb_node)
+
+
+def add_code_to_all_ipynb_tree(index:int, code:str, path:str=get_upper_folder(), b_debug:bool=False):
+    def gen_i_c_p():
+        for full_path in one_level_ipynb(path):
+            yield index, code, full_path
+    if b_debug:
+        list(itertools.starmap(insert_code_cell_to_ipynb, gen_i_c_p()))
+    else:
+        pool = mp.Pool(mp.cpu_count()-1)
+        pool.starmap(insert_code_cell_to_ipynb, gen_i_c_p())
+        pool.close()
+        pool.join()
+
+
+def remove_cell_id_from_nodes(nb_node:nbformat.NotebookNode) -> None:
+    """
+    Sometimes, ipynb files may contain cell IDs
+    Also, sometimes, some users may prefer metadata without IDs
+
+    =======
+    Example
+    =======
+    >>> ipynb_full_path = "sample.ipynb"
+    >>> nodes = read_nodes_from_ipynb(ipynb_full_path)
+    >>> remove_cell_id_from_nodes(nodes)
+    >>> write_nodes_to_ipynb(full_path, nodes)
+    """
+
+    for cell in nb_node["cells"]:
+        if "id" in cell["metadata"]:
+            del cell["metadata"]["id"]

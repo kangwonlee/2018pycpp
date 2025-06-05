@@ -1,0 +1,33 @@
+name: Check Links
+
+on:
+  schedule:
+    - cron: '45 01 30 * *'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test_links_utils:
+    name: Check links in ipynb
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Create virtual environment
+      run: uv venv
+
+    - name: Install dependencies
+      run: uv pip install pytest pytest-xdist requests jupyter lxml numpy matplotlib scipy sympy
+
+    - name: Check links
+      run: uv run pytest -n auto ./tests/test_check_links_in_ipynb.py ./utils/tests/

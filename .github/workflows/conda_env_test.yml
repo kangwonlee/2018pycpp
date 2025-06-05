@@ -1,10 +1,18 @@
 name: CI
 
-on: 
+on:
+  schedule:
+    - cron: '45 01 30 * *'
+
   push:
+
   pull_request:
+    branches: [main]
+
   fork:
+
   workflow_dispatch:
+
 
 jobs:
   badges:
@@ -20,45 +28,53 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.11'
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Create virtual environment
+      run: uv venv
 
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install bs4 jupyter lxml
+      run: uv pip install beautifulsoup4 jupyter lxml
 
     - name: Add/Update badges
-      run: python ./utils/add_colab_main_buttons.py
+      run: uv run python ./utils/add_colab_main_buttons.py
 
     - name: Commit & push
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_message: "Add Google Colab badges"
+        commit_message: "Clean ipynb ${{ github.sha }}"
 
   test_ipynb:
     needs: badges
-    name: Test ipynb with Anaconda ${{ matrix.anaconda }}
+    name: Test ipynb on Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        anaconda: ["2021.11", "nightly"]
+        python-version: ["3.10", "3.11"]
       fail-fast: false
     timeout-minutes: 30
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set up Miniconda
-      uses: conda-incubator/setup-miniconda@v3
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        auto-update-conda: true
-        miniconda-version: "latest"
-        environment-file: ./tests/environment.${{ matrix.anaconda }}.yml
-        activate-environment: test-environment
+        python-version: ${{ matrix.python-version }}
+
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Create virtual environment
+      run: uv venv
+
+    - name: Install dependencies
+      run: uv pip install pytest pytest-xdist jupyter nbconvert numpy matplotlib scipy sympy
 
     - name: Run tests
-      shell: bash -l {0}
       env:
         TEST_IPYNB_IGNORE_FOLDER: tutorial
-      run: |
-        pytest --numprocesses=auto -k 'not (links or update_nmisp_py)' tests/
+      run: uv run pytest --numprocesses=auto -k 'not (links or update_nmisp_py)' tests/

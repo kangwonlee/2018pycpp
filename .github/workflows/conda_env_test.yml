@@ -72,7 +72,7 @@ jobs:
       run: uv venv
 
     - name: Install dependencies
-      run: uv pip install pytest pytest-xdist jupyter nbconvert numpy matplotlib scipy sympy
+      run: uv pip install pytest pytest-json-report pytest-xdist jupyter nbconvert numpy matplotlib pandas scipy sympy
 
     - name: Run tests
       env:

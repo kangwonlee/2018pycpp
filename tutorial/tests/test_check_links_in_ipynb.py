@@ -41,7 +41,7 @@ patterns = [
         'text': '[![CppCon moving pictures](https://i.ytimg.com/vi/PorfLSr3DDI/hqdefault.jpg)](https://www.youtube.com/user/CppCon/videos)\n\n',
         'urls': {
             'https://i.ytimg.com/vi/PorfLSr3DDI/hqdefault.jpg',
-        } 
+        }
     },
     {
         'text': '* You could use following [command](https://stackoverflow.com/questions/8305866/how-to-analyze-a-programs-core-dump-file-with-gdb) to analyze.<br>\n``` sh\ngdb <executable> -c <core-file>\n```',
@@ -121,7 +121,7 @@ cell_list_re_pattern_test_image_with_links = [
         'text': '[![alt text](image_link)](link_here)\n\n',
         'urls': {
             'link_here',
-        } 
+        }
     },
 ]
 
@@ -376,10 +376,10 @@ def test_check_link_in_cell():
         "[ref0](https://en.wikipedia.org/wiki/New_and_delete_&#40;C%2B%2B&#41;)\n",
         "\n"
     ])
-    }    
+    }
 
     r = cli.get_re_markdown_simple_link()
-    
+
     # function under test
     # success case
     cli.check_link_in_cell(google_cell, r)

@@ -28,7 +28,7 @@ def is_markdown_cpp_src(ipynb_cell):
         src = ipynb_cell['source'].strip()
 
         # Multiline code block within ```'s
-        if (src.startswith('```') 
+        if (src.startswith('```')
             and src.endswith('```')):
 
             # check C++ right after ```

@@ -72,5 +72,5 @@ def check_links_in_ipynb_cells_list(cells_list):
 
         # check simple urls
         check_link_in_cell(cell, rs)
-        # check urls linked to 
+        # check urls linked to
         check_link_in_cell(cell, ri)

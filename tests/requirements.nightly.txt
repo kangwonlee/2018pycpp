@@ -1,0 +1,17 @@
+# python
+cython
+jupyter
+lxml
+matplotlib
+numpy
+pandas
+pandas-datareader
+pytest
+pytest-xdist
+requests
+scikit-learn
+scipy
+seaborn
+statsmodels
+sympy
+xlwt

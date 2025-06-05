@@ -71,13 +71,23 @@ jobs:
       run: uv venv test-env-${{ matrix.environment.name }} --python ${{ matrix.environment.python-version }}
 
     - name: Install dependencies
+      shell: bash
       run: |
-        source test-env-${{ matrix.environment.name }}/bin/activate
-        uv pip install -r tests/requirements.${{ matrix.environment.name }}.txt
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          .venv\Scripts\activate
+        else
+          source .venv/bin/activate
+        fi
+        uv pip install -r ${{ matrix.environment.req-file }}
 
     - name: Run tests
       env:
         TEST_IPYNB_IGNORE_FOLDER: tutorial
+      shell: bash
       run: |
-        source test-env-${{ matrix.environment.name }}/bin/activate
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          .venv\Scripts\activate
+        else
+          source .venv/bin/activate
+        fi
         uv run pytest --numprocesses=auto -k 'not (links or update_nmisp_py)' tests/

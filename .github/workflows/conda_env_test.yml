@@ -50,7 +50,7 @@ jobs:
   test_ipynb:
     needs: badges
     name: ${{ matrix.environment.name }} on ${{ matrix.os }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         environment:

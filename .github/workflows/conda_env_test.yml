@@ -74,8 +74,10 @@ jobs:
       shell: bash
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]]; then
+          echo "Entering Windows block"
           .venv\Scripts\activate
         else
+          echo "Entering non-Windows block"
           source .venv/bin/activate
         fi
         uv pip install -r ${{ matrix.environment.req-file }}

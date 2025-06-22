@@ -75,10 +75,10 @@ jobs:
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           echo "Entering Windows block"
-          .venv\Scripts\activate
+          test-env-${{ matrix.environment.name }}\Scripts\activate
         else
           echo "Entering non-Windows block"
-          source .venv/bin/activate
+          source test-env-${{ matrix.environment.name }}/bin/activate
         fi
         uv pip install -r ${{ matrix.environment.req-file }}
 
@@ -88,8 +88,8 @@ jobs:
       shell: bash
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]]; then
-          .venv\Scripts\activate
+          test-env-${{ matrix.environment.name }}\Scripts\activate
         else
-          source .venv/bin/activate
+          source test-env-${{ matrix.environment.name }}/bin/activate
         fi
         uv run pytest --numprocesses=auto -k 'not (links or update_nmisp_py)' tests/

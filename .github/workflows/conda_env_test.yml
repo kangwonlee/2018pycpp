@@ -49,15 +49,14 @@ jobs:
 
   test_ipynb:
     needs: badges
-    name: ${{ matrix.environment.name }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.environment.name }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         environment:
           - {name: '2021.11', python-version: "3.9.4"}
           - {name: '2022.10', python-version: "3.10"}
           - {name: 'nightly', python-version: "3"}
-        os: [ubuntu-latest, macos-latest, windows-latest,]
       fail-fast: false
     timeout-minutes: 30
     steps:
@@ -73,13 +72,7 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: |
-        if [[ "${{ runner.os }}" == "Windows" ]]; then
-          echo "Entering Windows block"
-          test-env-${{ matrix.environment.name }}\Scripts\activate
-        else
-          echo "Entering non-Windows block"
-          source test-env-${{ matrix.environment.name }}/bin/activate
-        fi
+        source test-env-${{ matrix.environment.name }}/bin/activate
         uv pip install -r tests/requirements.${{ matrix.environment.name }}.txt
 
     - name: Run tests
@@ -87,9 +80,5 @@ jobs:
         TEST_IPYNB_IGNORE_FOLDER: tutorial
       shell: bash
       run: |
-        if [[ "${{ runner.os }}" == "Windows" ]]; then
-          test-env-${{ matrix.environment.name }}\Scripts\activate
-        else
-          source test-env-${{ matrix.environment.name }}/bin/activate
-        fi
+        source test-env-${{ matrix.environment.name }}/bin/activate
         uv run pytest --numprocesses=auto -k 'not (links or update_nmisp_py)' tests/

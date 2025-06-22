@@ -80,7 +80,7 @@ jobs:
           echo "Entering non-Windows block"
           source test-env-${{ matrix.environment.name }}/bin/activate
         fi
-        uv pip install -r ${{ matrix.environment.req-file }}
+        uv pip install -r tests/requirements.${{ matrix.environment.name }}.txt
 
     - name: Run tests
       env:

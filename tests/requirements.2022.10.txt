@@ -6,7 +6,7 @@ matplotlib==3.5.2
 numpy==1.22.0
 pandas==1.4.4
 pandas-datareader==0.10.0
-pytest==7.1.2
+pytest==9.0.3
 pytest-xdist==2.5.0
 requests==2.32.2
 scikit-learn==1.5.1
